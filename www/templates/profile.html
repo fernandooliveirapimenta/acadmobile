@@ -1,0 +1,20 @@
+                
+<ion-view style="" class=" " id="page4" title="Perfil" >
+
+    <ion-content class="has-header" padding="true">
+
+        <div id="perfil-card21" class="list card ">
+
+            <div ng-controller="loginCtrl" ng-if="authData.facebook" class="list card">
+			     <div class="item item-avatar">
+			           <img ng-src="{{authData.facebook.profileImageURL}}" >
+			          <h2>{{auth.Data.facebook.displayName}}</h2>
+			    </div>
+			</div>
+
+        </div>
+
+    </ion-content>
+    
+</ion-view>
+
