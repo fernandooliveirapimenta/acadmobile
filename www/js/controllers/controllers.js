@@ -11,7 +11,7 @@ angular.module('app.controllers', [])
 .controller('instituicaoCtrl', function($scope) {
 
 })       
-.controller('loginCtrl', function($scope, Auth, $location) {
+.controller('loginCtrl', function($scope, Auth, $state) {
      
       Auth.ref.$onAuth(function(authData){
       if(authData ===null){
@@ -21,7 +21,7 @@ angular.module('app.controllers', [])
       {
         console.log("autenticado");
         console.log(authData);
-        $location.path("/Eventos");
+        $state.go("tabsController.eventos");
 
       }
 
