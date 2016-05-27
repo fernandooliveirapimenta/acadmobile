@@ -60,6 +60,12 @@ angular.module('app.routes', [])
       }
     }
   })
+  .state('esqueceusenha', {
+    url: '/EsqueceuSenha',
+    templateUrl: 'templates/esqueceusenha.html',
+    controller: 'esqueceuSenhaCtrl'
+    
+  })
 
 $urlRouterProvider.otherwise('/Login')
 

@@ -35,12 +35,20 @@
    
 .controller('instituicaoCtrl', function($scope) {
 
+}) 
+.controller('esqueceuSenhaCtrl', function($scope, $state) {
+
+  $scope.esqueciSenha = function(){
+   $state.go("login");
+  };
+  
 })       
 .controller('loginCtrl', function($scope, Auth, $state) {
      
       Auth.ref.$onAuth(function(authData){
       if(authData ===null){
-        console.log("Usuario nao autentica")
+        console.log("Usuario nao autentica");
+        $state.go("login");
       }
       else{
         console.log("autenticado");
@@ -55,6 +63,10 @@
      $scope.loginRedes = function(authData){
       Auth.loginRedes(authData);
      }
+
+     $scope.esqueceuSenha = function(){
+      $state.go("esqueceusenha");
+     };
 
       // $scope.loginGoogle = function(){
       //   Auth.loginGoogle();
