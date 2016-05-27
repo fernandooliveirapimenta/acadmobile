@@ -41,6 +41,8 @@
   $scope.esqueciSenha = function(){
    $state.go("login");
   };
+
+  $scope.email = '';
   
 })       
 .controller('loginCtrl', function($scope, Auth, $state) {

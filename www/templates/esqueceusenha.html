@@ -1,19 +1,28 @@
 <ion-view style="" class=" " id="page7" title="Esqueceu a senha">
     <ion-content class="has-header" padding="true">
-        <form class="list " id="login-form1">
+        <form class="list " id="formSenha">
             <div class="card">
                   <div class="item item-text-wrap">
-                    Esqueci a senha
+                    <h2>Esqueci a senha</h2>
                   </div>
                 <ion-list class=" " id="login-list3">
                  <label class="item item-input">
-                    <input type="text" placeholder="Email">
+                   <input  ng-model="email" type="text"  placeholder="Email">
                  </label>
                 </ion-list>                
                 <button class=" button button-dark button-small button-block " id="esqueceuSubmit" ng-click="esqueciSenha()">Ok</button >
-                
+              
             </div>
+            <ul class="list">
+              <li class="item">
+               <p>
+                 Você recebera um email com sua nova senha!
+              </p>
+
+              </li>
+          </ul>
         </form>
+
     </ion-content>
       <div class="bar bar-footer bar-light">
           <div class="title">
