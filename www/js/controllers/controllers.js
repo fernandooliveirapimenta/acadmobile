@@ -7,6 +7,15 @@ angular.module('app.controllers', [])
 .controller('noticiasCtrl', function($scope) {
 
 })
+.controller('profileCtrl', function($scope, Auth) {
+   Auth.ref.$onAuth(function(authData){
+        $scope.authData = authData;
+     });
+   
+  $scope.logoff = function(){
+      Auth.logoff();
+    }
+}) 
    
 .controller('instituicaoCtrl', function($scope) {
 

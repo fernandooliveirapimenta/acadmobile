@@ -50,6 +50,16 @@ angular.module('app.routes', [])
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
+  
+  .state('tabsController.profile', {
+    url: '/Profile',
+    views: {
+      'tab4': {
+        templateUrl: 'templates/profile.html',
+        controller: 'profileCtrl'
+      }
+    }
+  })
 
 $urlRouterProvider.otherwise('/Login')
 

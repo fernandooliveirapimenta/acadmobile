@@ -3,7 +3,7 @@ angular.module('app.services', [])
 .factory('BlankFactory', [function(){
 
 }])
-.factory('Auth', function($firebaseAuth){
+.factory('Auth', function($firebaseAuth,$state){
 	var endpoint = 'https://authacad.firebaseio.com';
 	var usersRef = new Firebase(endpoint);
 	
@@ -30,6 +30,10 @@ angular.module('app.services', [])
 		      }
     });
 
+   };
+
+   service.logoff = function(){
+     $state.go("login");
    };
 	service.ref=new $firebaseAuth(usersRef);
 

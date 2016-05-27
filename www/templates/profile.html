@@ -1,20 +1,35 @@
-                
-<ion-view style="" class=" " id="page4" title="Perfil" >
 
+
+<ion-view style="" class=" " id="page6" title="Perfil">
     <ion-content class="has-header" padding="true">
-
-        <div id="perfil-card21" class="list card ">
-
-            <div ng-controller="loginCtrl" ng-if="authData.facebook" class="list card">
+        <form class="list " id="login-form1">
+             <div  ng-if="authData.facebook" class="list card">
 			     <div class="item item-avatar">
 			           <img ng-src="{{authData.facebook.profileImageURL}}" >
-			          <h2>{{auth.Data.facebook.displayName}}</h2>
+			           <h3>{{authData.facebook.displayName}}</h3>
 			    </div>
+			    
 			</div>
-
-        </div>
-
+			<div  ng-if="authData.google" class="list card">
+			     <div class="item item-avatar">
+			           <img ng-src="{{authData.google.profileImageURL}}" >
+			           <h3>{{authData.google.displayName}}</h3>
+			    </div>
+			   
+			</div>
+			<button class="button button-assertive button-block ion-log-out" ng-click="logoff()">
+			  Sair
+			</button>          
+             
+        </form>
     </ion-content>
-    
 </ion-view>
+
+
+
+
+
+            
+			
+
 
