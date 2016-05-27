@@ -2,9 +2,9 @@
     <ion-content class="has-header" padding="true">
         <form class="list " id="login-form1">
             <div class="card">
-                  <div class="item item-text-wrap">
+                <div class="item item-text-wrap">
                     Login
-                  </div>
+                </div>
                 <ion-list class=" " id="login-list3">
                 <label id="login-input1" class="item item-input ">
                     <span class="input-label ion-android-person"></span>
@@ -16,21 +16,12 @@
                 </label>
                 </ion-list>
                 <a class="button button-full button-dark" id="logar" ui-sref="tabsController.eventos">Logar</a>
-                
-                <button class=" button button-dark  button-block button-clear " id="esqueceuSenha" ng-click="esqueceuSenha()">Esqueceu a senha?</button >
-                
-            </div>
-            
-            <div class="card">
-              <div class="item item-divider">
                 <div class="button-bar">
-                  <button id="login-button11" class=" button button-royal button-small  icon ion-social-facebook " ng-click="loginRedes('facebook')"></button>
-                    <button id="login-button10"  class=" button button-assertive button-small icon ion-social-google " ng-click="loginRedes('google')"> +</button>
-                </div>
-              </div>
-              <div class="item item-divider">
+                      <button id="login-button11" class=" button button-royal button-block button-small  icon ion-social-facebook " ng-click="loginRedes('facebook')"></button>
+                        <button id="login-button10"  class=" button button-assertive button-block button-small icon ion-social-google " ng-click="loginRedes('google')"> +</button>
+                    </div>
+                <button class=" button button-dark  button-block button-clear " id="esqueceuSenha" ng-click="esqueceuSenha()">Esqueceu a senha?</button >
                 <a class=" button button-dark  button-block button-clear " id="criarConta" onclick="window.open('https://www.youtube.com/?hl=pt&gl=BR', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta?</a>
-              </div>
             </div>
         </form>
     </ion-content>
