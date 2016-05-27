@@ -42,8 +42,7 @@
       if(authData ===null){
         console.log("Usuario nao autentica")
       }
-      else
-      {
+      else{
         console.log("autenticado");
         console.log(authData);
         $state.go("tabsController.eventos");
@@ -53,12 +52,12 @@
       $scope.authData = authData;
      });
      
-     $scope.loginFace = function(){
-      Auth.loginFace();
+     $scope.loginRedes = function(authData){
+      Auth.loginRedes(authData);
      }
 
-      $scope.loginGoogle = function(){
-        Auth.loginGoogle();
-      }
+      // $scope.loginGoogle = function(){
+      //   Auth.loginGoogle();
+      // }
 });
  

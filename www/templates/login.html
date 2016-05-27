@@ -14,19 +14,29 @@
                     <span class="input-label ion-locked"></span>
                     <input placeholder="" type="password">
                 </label>
-            </ion-list>
+                </ion-list>
+                <a class="button button-full button-dark" id="logar" ui-sref="tabsController.eventos">Logar</a>
             </div>
-           
-
             
-            <a class="button button-full button-positive" id="logar" ui-sref="tabsController.eventos">Logar</a>
-             <div id="login-button-bar2" class=" button-bar ">
-                <button id="login-button11" class=" button button-royal button-small button-block icon ion-social-facebook " ng-click="loginFace()"></button>
-                <button id="login-button10"  class=" button button-assertive button-small button-block icon ion-social-google " ng-click="loginGoogle()"> +</button>
+            <div class="card">
+              <div class="item item-divider">
+                <div class="button-bar">
+                  <button id="login-button11" class=" button button-royal button-small  icon ion-social-facebook " ng-click="loginRedes('facebook')"></button>
+                    <button id="login-button10"  class=" button button-assertive button-small icon ion-social-google " ng-click="loginRedes('google')"> +</button>
+                </div>
+              </div>
+              <div class="item item-divider">
+                <a class=" button button-dark  button-block button-clear " id="criarConta" onclick="window.open('https://www.youtube.com/?hl=pt&gl=BR', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta?</a>
+              </div>
             </div>
-                 
-            <a class=" button button-positive  button-block button-clear " id="criarConta" onclick="window.open('https://www.youtube.com/?hl=pt&gl=BR', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta</a>
         </form>
     </ion-content>
+      <div class="bar bar-footer bar-light">
+          <div class="title">
+            <h6>
+                  © 2016 AcaD, Inc.
+            </h6>
+          </div>
+      </div>
 </ion-view>
 

@@ -9,33 +9,32 @@ angular.module('app.services', [])
 	
 	var service = {};
 
-       service.loginFace = function(){
-       
-		          usersRef.authWithOAuthPopup("facebook", function(error, authData) {
-		      if (error) {
-		        console.log("Login Failed!", error);
-		      } else {
-		        console.log("Authenticated successfully with payload:", authData);
-		      }
-    });
-
+       service.loginRedes = function(authData){
+				usersRef.authWithOAuthPopup(authData, function(error, authData) {
+				      if (error) {
+				        console.log("Login Failed!", error);
+				      } else {
+				        console.log("Authenticated successfully with payload:", authData);
+				      }
+		 });
      };
 
-     service.loginGoogle = function (){
-		            usersRef.authWithOAuthPopup("google", function(error, authData) {
-		      if (error) {
-		        console.log("Login Failed!", error);
-		      } else {
-		        console.log("Authenticated successfully with payload:", authData);
-		      }
-    });
+   //   service.loginGoogle = function (){
+		 //            usersRef.authWithOAuthPopup("google", function(error, authData) {
+		 //      if (error) {
+		 //        console.log("Login Failed!", error);
+		 //      } else {
+		 //        console.log("Authenticated successfully with payload:", authData);
+		 //      }
+   //  });
 
-   };
+   // };
 
    service.logoff = function(){
      $state.go("login");
    };
-	service.ref=new $firebaseAuth(usersRef);
+
+    service.ref=new $firebaseAuth(usersRef);
 
 	return service;
 })
