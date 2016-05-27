@@ -1,10 +1,26 @@
-angular.module('app.controllers', [])
+ angular.module('app.controllers', [])
   
 .controller('eventosCtrl', function($scope) {
 
 })
    
-.controller('noticiasCtrl', function($scope) {
+.controller('noticiasCtrl', function($scope, $http) {
+   $scope.servico = {};
+
+   // $http.get('http://rest-service.guides.spring.io/greeting')
+   //      .then(function(response){
+   //        $scope.servico  = response.data;
+   //          console.log(response.data.id);
+   //      });
+
+        $http.get('http://rest-service.guides.spring.io/greeting')
+       .success(function(response){
+         $scope.servico  = response;
+            console.log(response.id);
+       }).error(function(erro){
+         console.log(erro);
+       });
+
 
 })
 .controller('profileCtrl', function($scope, Auth) {

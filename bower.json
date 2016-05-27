@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "angular-mocks": "^1.5.5",
-    "angularfire": "^1.2.0"
+    "angularfire": "^1.2.0",
+    "angular-resource": "^1.5.5"
   }
 }
