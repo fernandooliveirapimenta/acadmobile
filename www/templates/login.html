@@ -1,27 +1,32 @@
 <ion-view style="" class=" " id="page5" title="Login">
     <ion-content class="has-header" padding="true">
         <form class="list " id="login-form1">
-            <ion-list class=" " id="login-list3">
+            <div class="card">
+                  <div class="item item-text-wrap">
+                    Login
+                  </div>
+                <ion-list class=" " id="login-list3">
                 <label id="login-input1" class="item item-input ">
-                    <span class="input-label">Ra:</span>
+                    <span class="input-label ion-android-person"></span>
                     <input placeholder="" type="text">
                 </label>
                 <label id="login-input2" class="item item-input ">
-                    <span class="input-label">Senha:</span>
+                    <span class="input-label ion-locked"></span>
                     <input placeholder="" type="password">
                 </label>
             </ion-list>
-            <div style="height: 40px;" class="spacer"></div>
-            <a class=" button button-stable  button-block " id="logar" ui-sref="tabsController.eventos">Logar</a>
-             <div id="login-button-bar2" class=" button-bar ">
-                <button id="login-button11" style="color:#5156F8;" class=" button button-stable button-large button-block icon ion-social-facebook " ng-click="loginFace()"></button>
-                <button id="login-button10" style="color:#DF0D37;" class=" button button-stable button-large button-block icon ion-social-google " ng-click="loginGoogle()"></button>
             </div>
-             
-            <a class=" button button-positive  button-block button-clear " id="criarConta" onclick="window.open('/signup', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta</a>
+           
+
+            
+            <a class="button button-full button-positive" id="logar" ui-sref="tabsController.eventos">Logar</a>
+             <div id="login-button-bar2" class=" button-bar ">
+                <button id="login-button11" class=" button button-royal button-small button-block icon ion-social-facebook " ng-click="loginFace()"></button>
+                <button id="login-button10"  class=" button button-assertive button-small button-block icon ion-social-google " ng-click="loginGoogle()"> +</button>
+            </div>
+                 
+            <a class=" button button-positive  button-block button-clear " id="criarConta" onclick="window.open('https://www.youtube.com/?hl=pt&gl=BR', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta</a>
         </form>
     </ion-content>
 </ion-view>
 
-//https://auth.firebase.com/v2/authacad/auth/facebook/callback
-//https://auth.firebase.com/v2/authacad/auth/google/callback

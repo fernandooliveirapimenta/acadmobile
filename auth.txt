@@ -1,0 +1,3 @@
+auth 
+https://auth.firebase.com/v2/authacad/auth/facebook/callback
+https://auth.firebase.com/v2/authacad/auth/google/callback
