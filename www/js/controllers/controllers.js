@@ -33,7 +33,16 @@
     }
 }) 
    
-.controller('instituicaoCtrl', function($scope) {
+.controller('instituicaoCtrl', function($scope,instituicaoService) {
+  $scope.instituicoes = [];
+   
+
+  $scope.carregar = function (){
+    instituicaoService.buscarTodos().success(function(data){
+      console.log(data);
+      $scope.instituicoes = angular.fromJson(data);
+    });
+  };
 
 }) 
 .controller('esqueceuSenhaCtrl', function($scope, $state) {

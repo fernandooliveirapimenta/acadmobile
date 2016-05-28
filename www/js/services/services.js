@@ -38,6 +38,27 @@ angular.module('app.services', [])
 
 	return service;
 })
+.factory('instituicaoService', function($http,servicoAcad){
+	var urlInstituicao =  servicoAcad.urlBase +'Instituicao';
+	instService = [];
+
+	instService.buscarTodos = function(){
+		return $http.get(urlInstituicao);
+	}
+	return instService;
+})
+
+.factory('servicoAcad', function(){
+
+	
+	var servicoAcad = {};
+    var servico = 'http://localhost:23626/api/';
+	servicoAcad.urlBase = servico;
+
+    return servicoAcad;
+
+
+})
 
 .service('BlankService', [function(){
 
