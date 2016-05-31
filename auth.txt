@@ -1,3 +1,5 @@
 auth 
 https://auth.firebase.com/v2/authacad/auth/facebook/callback
 https://auth.firebase.com/v2/authacad/auth/google/callback
+
+curl -u 66272613d093e72e0460d966ca4adf1269f4d4218726065b: -H "Content-Type: application/json" -H "X-Ionic-Application-Id: 47b9fc09" https://push.ionic.io/api/v1/push -d '{"tokens":["DEV-34cc73cd-1fb2-4b2f-82c6-19b077eb86e6"],"notification":{"alert":"oi fernandoooooo"}}'

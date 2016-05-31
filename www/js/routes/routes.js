@@ -50,6 +50,11 @@ angular.module('app.routes', [])
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
+  .state('push', {
+    url: '/Push',
+    templateUrl: 'templates/push.html',
+    controller: 'PushCtrl'
+  })
   
   .state('tabsController.profile', {
     url: '/Profile',
