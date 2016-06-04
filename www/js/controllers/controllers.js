@@ -3,7 +3,6 @@
 .controller('eventosCtrl', function($scope) {
 
 })
-
 .controller('noticiasCtrl', function($scope, $http) {
    $scope.servico = {};
 
@@ -27,7 +26,6 @@
    Auth.ref.$onAuth(function(authData){
         $scope.authData = authData;
      });
-
   $scope.logoff = function(){
       Auth.logoff();
     }
@@ -47,7 +45,6 @@
     });
 
   };
-
   $scope.carregar();
 
 })
@@ -56,7 +53,6 @@
   $scope.esqueciSenha = function(){
    $state.go("login");
   };
-
   $scope.email = '';
 
 })
@@ -73,18 +69,14 @@
         $state.go("tabsController.eventos");
 
       }
-
       $scope.authData = authData;
      });
-
      $scope.loginRedes = function(authData){
       Auth.loginRedes(authData);
      }
-
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };
-
       // $scope.loginGoogle = function(){
       //   Auth.loginGoogle();
       // }
