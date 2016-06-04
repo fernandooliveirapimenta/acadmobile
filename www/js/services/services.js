@@ -3,7 +3,7 @@ angular.module('app.services', [])
 .factory('BlankFactory', [function(){
 
 }])
-.factory('Auth', function($firebaseAuth,$state){
+.factory('Auth', function($firebaseAuth,$state,servicoAcad,$http){
 	var endpoint = 'https://authacad.firebaseio.com';
 	var usersRef = new Firebase(endpoint);
 
@@ -18,6 +18,11 @@ angular.module('app.services', [])
 				      }
 		 });
      };
+
+		 service.loginAcad = function(user){
+			 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;
+				return $http.get(urlLogin);
+		 }
 
    //   service.loginGoogle = function (){
 		 //            usersRef.authWithOAuthPopup("google", function(error, authData) {
@@ -39,10 +44,12 @@ angular.module('app.services', [])
 	return service;
 })
 .factory('instituicaoService', function($http,servicoAcad){
-	var urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/11?perfil=Administrador';
-	instService = [];
 
-	instService.buscarTodos = function(){
+	instService = {};
+
+	instService.buscarInstituicao = function(){
+		var user = servicoAcad.pegarUsuarioSession();
+		var urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
 		return $http.get(urlInstituicao);
 	}
 	return instService;

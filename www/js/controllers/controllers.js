@@ -22,13 +22,15 @@
 
 
 })
-.controller('profileCtrl', function($scope, Auth) {
+.controller('profileCtrl', function($scope, Auth,servicoAcad) {
    Auth.ref.$onAuth(function(authData){
         $scope.authData = authData;
      });
   $scope.logoff = function(){
       Auth.logoff();
     }
+
+    $scope.user = servicoAcad.pegarUsuarioSession();
 })
 
 .controller('instituicaoCtrl', function($scope,instituicaoService,$state) {
@@ -36,7 +38,7 @@
 
 //TODO  receber usuário
   $scope.carregar = function (){
-    instituicaoService.buscarTodos().success(function(data){
+    instituicaoService.buscarInstituicao().success(function(data){
       console.log(data);
       $scope.instituicao = angular.fromJson(data);
        $state.go("tabsController.instituicao");
@@ -57,7 +59,7 @@
   $scope.email = '';
 
 })
-.controller('loginCtrl', function($scope, Auth, $state) {
+.controller('loginCtrl', function($scope, Auth, $state,servicoAcad, $window) {
 
       Auth.ref.$onAuth(function(authData){
       if(authData ===null){
@@ -78,6 +80,30 @@
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };
+
+     $scope.user ={
+       email: '',
+       senha: ''
+     };
+     $scope.mensagem = '';
+     $scope.userSession = {};
+
+     $scope.loginAcad = function(user){
+       Auth.loginAcad(user).success(function(data){
+         console.log(data);
+         $scope.userSession = angular.fromJson(data);
+         servicoAcad.colocarUsuarioNaSession($scope.userSession);
+         console.log($scope.userSession);
+          $state.go("tabsController.eventos");
+       }).error(function(erro){
+         $state.go("login");
+         $scope.mensagem = erro;
+         console.log(erro);
+       });
+     }
+     $scope.sumir = function () {
+       $scope.mensagem = '';
+     }
 
 
 

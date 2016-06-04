@@ -2,20 +2,24 @@
     <ion-content class="has-header" padding="true">
         <form class="list " id="login-form1">
             <div class="card">
+                <div class="item item-text-wrap" ng-if="mensagem">
+                  <label class="assertive"  ng-click="sumir()" >{{mensagem}}</label>
+                </div>
                 <div class="item item-text-wrap">
                     Login
                 </div>
                 <ion-list class=" " id="login-list3">
+
                 <label id="login-input1" class="item item-input ">
                     <span class="input-label ion-android-person"></span>
-                    <input placeholder="" type="text">
+                    <input placeholder="" type="text" ng-model="user.email">
                 </label>
                 <label id="login-input2" class="item item-input ">
                     <span class="input-label ion-locked"></span>
-                    <input placeholder="" type="password">
+                    <input placeholder="" type="password" ng-model="user.senha">
                 </label>
                 </ion-list>
-                <a class="button button-full button-dark" id="logar" ui-sref="tabsController.eventos">Logar</a>
+                <a class="button button-full button-dark" id="logar" ng-click="loginAcad(user)" >Logar</a>
                 <div class="button-bar">
                       <button id="login-button11" class=" button button-royal button-block button-small  icon ion-social-facebook " ng-click="loginRedes('facebook')"></button>
                         <button id="login-button10"  class=" button button-assertive button-block button-small icon ion-social-google " ng-click="loginRedes('google')"> +</button>
@@ -33,4 +37,3 @@
           </div>
       </div>
 </ion-view>
-
