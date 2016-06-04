@@ -1,16 +1,31 @@
 <ion-view style="" class=" " id="page4" title="Instituição">
     <ion-content class="has-header" padding="true">
-           
-        <ion-list class=" " id="instituiO-list2" >
-            <ion-item style="" id="instituiO-list-item7" class="item-thumbnail-left  ">
-                <h2>Unasp</h2>
-            </ion-item>
-            <ion-item style="" class="  " id="instituiO-list-item8" ng-click="carregar()"></ion-item>
-            <ion-item style="" class="  " id="instituiO-list-item9">Item 2</ion-item>
-            <ion-item style="" class="  " id="instituiO-list-item10">Item 3</ion-item>
-        </ion-list>
+      <div class="card">
+        <div class="item item-divider item-positive">
+          Instituição
+        </div>
+        <div class="item item-text-wrap">
+         <h2 >{{instituicao.Nome}}</h2>
+        </div>
+        <div class="item item-divider item-positive">
+          Endereços
+        </div>
+        <div class="item item-text-wrap">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit ipsum consectetur explicabo error minima voluptas itaque beatae maiores voluptatem corrupti perferendis dolores ullam fugiat deleniti quae, voluptatibus deserunt, accusantium magni repellat voluptates totam vero alias enim natus. Corporis, doloremque, consectetur.
+        </div>
+        <div class="item item-divider item-positive">
+          Missão
+        </div>
+        <div class="item item-text-wrap">
+          <h2>{{instituicao.Missao}}</h2>
+        </div>
+        <div class="item item-divider item-positive">
+          Visão
+        </div>
+        <div class="item item-text-wrap">
+          <h2>{{instituicao.Visao}}</h2>
+        </div>
+      </div>
     </ion-content>
-    <div class="row" ng-repeat="instituicao in instituicoes">
-        <div class="col">{{instituicao.Nome}}</div>
-    </div>
+
 </ion-view>

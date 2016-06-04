@@ -1,9 +1,9 @@
  angular.module('app.controllers', [])
-  
+
 .controller('eventosCtrl', function($scope) {
 
 })
-   
+
 .controller('noticiasCtrl', function($scope, $http) {
    $scope.servico = {};
 
@@ -13,13 +13,13 @@
    //          console.log(response.data.id);
    //      });
 
-        $http.get('http://rest-service.guides.spring.io/greeting')
-       .success(function(response){
-         $scope.servico  = response;
-            console.log(response.id);
-       }).error(function(erro){
-         console.log(erro);
-       });
+      //   $http.get('http://rest-service.guides.spring.io/greeting')
+      //  .success(function(response){
+      //    $scope.servico  = response;
+      //       console.log(response.id);
+      //  }).error(function(erro){
+      //    console.log(erro);
+      //  });
 
 
 })
@@ -27,24 +27,30 @@
    Auth.ref.$onAuth(function(authData){
         $scope.authData = authData;
      });
-   
+
   $scope.logoff = function(){
       Auth.logoff();
     }
-}) 
-   
-.controller('instituicaoCtrl', function($scope,instituicaoService) {
-  $scope.instituicoes = [];
-   
+})
 
+.controller('instituicaoCtrl', function($scope,instituicaoService,$state) {
+  $scope.instituicao = {};
+
+//TODO  receber usuário
   $scope.carregar = function (){
     instituicaoService.buscarTodos().success(function(data){
       console.log(data);
-      $scope.instituicoes = angular.fromJson(data);
+      $scope.instituicao = angular.fromJson(data);
+       $state.go("tabsController.instituicao");
+    }).error(function(erro){
+      console.log(erro);
     });
+
   };
 
-}) 
+  $scope.carregar();
+
+})
 .controller('esqueceuSenhaCtrl', function($scope, $state) {
 
   $scope.esqueciSenha = function(){
@@ -52,10 +58,10 @@
   };
 
   $scope.email = '';
-  
-})       
+
+})
 .controller('loginCtrl', function($scope, Auth, $state) {
-     
+
       Auth.ref.$onAuth(function(authData){
       if(authData ===null){
         console.log("Usuario nao autentica");
@@ -70,7 +76,7 @@
 
       $scope.authData = authData;
      });
-     
+
      $scope.loginRedes = function(authData){
       Auth.loginRedes(authData);
      }
@@ -83,4 +89,3 @@
       //   Auth.loginGoogle();
       // }
 });
- 

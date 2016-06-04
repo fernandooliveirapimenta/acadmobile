@@ -6,7 +6,7 @@ angular.module('app.services', [])
 .factory('Auth', function($firebaseAuth,$state){
 	var endpoint = 'https://authacad.firebaseio.com';
 	var usersRef = new Firebase(endpoint);
-	
+
 	var service = {};
 
        service.loginRedes = function(authData){
@@ -39,7 +39,7 @@ angular.module('app.services', [])
 	return service;
 })
 .factory('instituicaoService', function($http,servicoAcad){
-	var urlInstituicao =  servicoAcad.urlBase +'Instituicao';
+	var urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/11?perfil=Administrador';
 	instService = [];
 
 	instService.buscarTodos = function(){
@@ -50,9 +50,9 @@ angular.module('app.services', [])
 
 .factory('servicoAcad', function(){
 
-	
+
 	var servicoAcad = {};
-    var servico = 'http://localhost:23626/api/';
+    var servico = 'http://apiacad.azurewebsites.net/api/';
 	servicoAcad.urlBase = servico;
 
     return servicoAcad;
@@ -63,4 +63,3 @@ angular.module('app.services', [])
 .service('BlankService', [function(){
 
 }]);
-
