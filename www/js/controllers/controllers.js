@@ -47,6 +47,7 @@
   };
   $scope.carregar();
 
+
 })
 .controller('esqueceuSenhaCtrl', function($scope, $state) {
 
@@ -77,6 +78,9 @@
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };
+
+
+
       // $scope.loginGoogle = function(){
       //   Auth.loginGoogle();
       // }

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives','firebase', 'ngCordova', 'ionic.service.core','ionic.service.push'])
+angular.module('app', ['ionic', 'ngCookies','app.controllers', 'app.routes', 'app.services', 'app.directives','firebase', 'ngCordova', 'ionic.service.core','ionic.service.push'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -34,13 +34,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       // Set your user_id here, or generate a random one.
       user.user_id = $ionicUser.generateGUID();
     };
-   
+
     // Metadata
     angular.extend(user, {
       name: 'Simon',
       bio: 'Author of Devdactic'
     });
-   
+
     // Identify your user with the Ionic User Service
     $ionicUser.identify(user).then(function(){
       $scope.identified = true;
@@ -50,7 +50,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
 
   $scope.pushRegister = function() {
  console.log('Ionic Push: Registering user');
- 
+
    // Register with the Ionic Push service.  All parameters are optional.
    $ionicPush.register({
      canShowAlert: true, //Can pushes show an alert on your screen?

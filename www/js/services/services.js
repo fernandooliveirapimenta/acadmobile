@@ -48,13 +48,24 @@ angular.module('app.services', [])
 	return instService;
 })
 
-.factory('servicoAcad', function(){
+.factory('servicoAcad', function($cookieStore){
 
 
 	var servicoAcad = {};
-    var servico = 'http://apiacad.azurewebsites.net/api/';
+  var servico = 'http://apiacad.azurewebsites.net/api/';
+
 	servicoAcad.urlBase = servico;
 
+   servicoAcad.colocarUsuarioNaSession = function (user) {
+     $cookieStore.put('usuario', user);
+
+   }
+   servicoAcad.pegarUsuarioSession = function () {
+      return $cookieStore.get('usuario');
+   }
+   servicoAcad.deletarUsuarioSession = function () {
+     $cookieStore.remove('usuario');
+   }
     return servicoAcad;
 
 
