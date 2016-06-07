@@ -30,11 +30,11 @@
     $scope.user = servicoAcad.pegarUsuarioSession();
 })
 
-.controller('instituicaoCtrl', function($scope,instituicaoService,$state) {
+.controller('instituicaoCtrl', function($scope,instituicaoService,$state,$http) {
   $scope.instituicao = {};
 
   $scope.carregar = function (){
-    instituicaoService.buscarInstituicao().success(function(data){
+    $http.get(instituicaoService.buscarInstituicao()).success(function(data){
       console.log(data);
       $scope.instituicao = angular.fromJson(data);
        $state.go("tabsController.instituicao");
@@ -55,7 +55,7 @@
   $scope.email = '';
 
 })
-.controller('loginCtrl', function($scope, Auth, $state,servicoAcad, $window) {
+.controller('loginCtrl', function($scope, Auth, $state,servicoAcad,$http) {
 
       Auth.ref.$onAuth(function(authData){
       if(authData ===null){
@@ -70,9 +70,14 @@
       }
       $scope.authData = authData;
      });
-     $scope.loginRedes = function(authData){
-      Auth.loginRedes(authData);
-     }
+
+     $scope.loginRedes = function(rede){
+      Auth.auth.authWithOAuthPopup(rede, function(error, authData) {
+            if (error) {
+              console.log("Login Failed!", error);
+            }
+   });
+   };
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };
@@ -85,7 +90,7 @@
      $scope.userSession = {};
 
      $scope.loginAcad = function(user){
-       Auth.loginAcad(user).success(function(data){
+      $http.get(Auth.loginAcad(user)).success(function(data){
          console.log(data);
          $scope.userSession = angular.fromJson(data);
          servicoAcad.colocarUsuarioNaSession($scope.userSession);

@@ -5,22 +5,15 @@ angular.module('app.services', [])
 }])
 
 
-.factory('Auth', function($firebaseAuth,$state,servicoAcad,$http){
+.factory('Auth', function($firebaseAuth,$state,servicoAcad){
 	var endpoint = 'https://authacad.firebaseio.com';
 	var usersRef = new Firebase(endpoint);
 	var service = {};
-       service.loginRedes = function(authData){
-				usersRef.authWithOAuthPopup(authData, function(error, authData) {
-				      if (error) {
-				        console.log("Login Failed!", error);
-				      } else {
-				        console.log("Authenticated successfully with payload:", authData);
-				      }
-		 });
-     };
+	service.auth= usersRef;
+
 		 service.loginAcad = function(user){
 			 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;
-				return $http.get(urlLogin);
+				return urlLogin;
 		 }
    service.logoff = function(){
      $state.go("login");
@@ -30,12 +23,12 @@ angular.module('app.services', [])
 })
 
 
-.factory('instituicaoService', function($http,servicoAcad){
+.factory('instituicaoService', function(servicoAcad){
 	instService = {};
 	instService.buscarInstituicao = function(){
 		var user = servicoAcad.pegarUsuarioSession();
 		var urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
-		return $http.get(urlInstituicao);
+		return urlInstituicao ;
 	}
 	return instService;
 })
