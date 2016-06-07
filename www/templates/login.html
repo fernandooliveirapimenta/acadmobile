@@ -19,7 +19,7 @@
                     <input placeholder="" type="password" ng-model="user.senha">
                 </label>
                 </ion-list>
-                <a class="button button-full button-dark" id="logar" ng-click="loginAcad(user)" >Logar</a>
+                <a ng-disabled="!user.email || !user.senha" class="button button-full button-dark" id="logar" ng-click="loginAcad(user)" >Logar</a>
                 <div class="button-bar">
                       <button id="login-button11" class=" button button-royal button-block button-small  icon ion-social-facebook " ng-click="loginRedes('facebook')"></button>
                         <button id="login-button10"  class=" button button-assertive button-block button-small icon ion-social-google " ng-click="loginRedes('google')"> +</button>

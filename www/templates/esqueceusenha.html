@@ -9,9 +9,9 @@
                  <label class="item item-input">
                    <input  ng-model="email" type="text"  placeholder="Email">
                  </label>
-                </ion-list>                
-                <button class=" button button-dark button-small button-block " id="esqueceuSubmit" ng-click="esqueciSenha()">Ok</button >
-              
+                </ion-list>
+                <button ng-disabled="!email" class=" button button-dark button-small button-block " id="esqueceuSubmit" ng-click="esqueciSenha()">Ok</button >
+
             </div>
             <ul class="list">
               <li class="item">
