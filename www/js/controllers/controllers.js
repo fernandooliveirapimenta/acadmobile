@@ -72,27 +72,13 @@
      });
 
        $scope.loginFace = function() {
-        Auth.auth.$authWithOAuthRedirect("facebook").then(function(authData) {
-        }).catch(function(error) {
-          if (error.code === "TRANSPORT_UNAVAILABLE") {
-            Auth.auth.$authWithOAuthPopup("facebook").then(function(authData) {
-            });
-          } else {
-            console.log(error);
-          }
-        });
+        Auth.auth.$authWithOAuthPopup('facebook');
+      };
+
+      $scope.loginGoogle = function() {
+      Auth.auth.$authWithOAuthPopup('google');
     };
-    $scope.loginGoogle = function() {
-     Auth.auth.$authWithOAuthRedirect("google").then(function(authData) {
-     }).catch(function(error) {
-       if (error.code === "TRANSPORT_UNAVAILABLE") {
-         Auth.auth.$authWithOAuthPopup("google").then(function(authData) {
-         });
-       } else {
-         console.log(error);
-       }
-     });
- };
+    
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };

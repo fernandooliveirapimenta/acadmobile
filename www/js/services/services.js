@@ -6,7 +6,7 @@ angular.module('app.services', [])
 
 
 .factory('Auth', function($firebaseAuth,$state,servicoAcad){
-	var endpoint = 'https://authacad.firebaseio.com/users';
+	var endpoint = 'https://authacad.firebaseio.com/';
 	var usersRef = new Firebase(endpoint);
 	var service = {};
   service.auth=new $firebaseAuth(usersRef);
