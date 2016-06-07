@@ -20,7 +20,7 @@
 
 })
 .controller('profileCtrl', function($scope, Auth,servicoAcad) {
-   Auth.ref.$onAuth(function(authData){
+   Auth.auth.$onAuth(function(authData){
         $scope.authData = authData;
      });
   $scope.logoff = function(){
@@ -57,7 +57,7 @@
 })
 .controller('loginCtrl', function($scope, Auth, $state,servicoAcad,$http) {
 
-      Auth.ref.$onAuth(function(authData){
+      Auth.auth.$onAuth(function(authData){
       if(authData ===null){
         console.log("Usuario nao autentica");
         $state.go("login");
@@ -71,13 +71,28 @@
       $scope.authData = authData;
      });
 
-     $scope.loginRedes = function(rede){
-      Auth.auth.authWithOAuthPopup(rede, function(error, authData) {
-            if (error) {
-              console.log("Login Failed!", error);
-            }
-   });
-   };
+       $scope.loginFace = function() {
+        Auth.auth.$authWithOAuthRedirect("facebook").then(function(authData) {
+        }).catch(function(error) {
+          if (error.code === "TRANSPORT_UNAVAILABLE") {
+            Auth.auth.$authWithOAuthPopup("facebook").then(function(authData) {
+            });
+          } else {
+            console.log(error);
+          }
+        });
+    };
+    $scope.loginGoogle = function() {
+     Auth.auth.$authWithOAuthRedirect("google").then(function(authData) {
+     }).catch(function(error) {
+       if (error.code === "TRANSPORT_UNAVAILABLE") {
+         Auth.auth.$authWithOAuthPopup("google").then(function(authData) {
+         });
+       } else {
+         console.log(error);
+       }
+     });
+ };
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };

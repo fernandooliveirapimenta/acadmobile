@@ -6,19 +6,18 @@ angular.module('app.services', [])
 
 
 .factory('Auth', function($firebaseAuth,$state,servicoAcad){
-	var endpoint = 'https://authacad.firebaseio.com';
+	var endpoint = 'https://authacad.firebaseio.com/users';
 	var usersRef = new Firebase(endpoint);
 	var service = {};
-	service.auth= usersRef;
+  service.auth=new $firebaseAuth(usersRef);
 
-		 service.loginAcad = function(user){
-			 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;
-				return urlLogin;
-		 }
-   service.logoff = function(){
-     $state.go("login");
-   };
-    service.ref=new $firebaseAuth(usersRef);
+	 service.loginAcad = function(user){
+		 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;
+			return urlLogin;
+	 }
+ service.logoff = function(){
+   $state.go("login");
+ };
 	return service;
 })
 
