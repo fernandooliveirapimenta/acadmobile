@@ -1,25 +1,22 @@
  angular.module('app.controllers', [])
 
-.controller('eventosCtrl', function($scope) {
+.controller('eventosCtrl', function($scope,$http,eventoService) {
 
+  $scope.eventos = [];
+
+  $scope.carregar = function(){
+    $http.get(eventoService.url()).success(function(data){
+      console.log(data);
+      $scope.eventos = angular.fromJson(data);
+    }).error(function(erro){
+      console.log(erro);
+    });
+  }
+
+   $scope.carregar();
 })
 .controller('noticiasCtrl', function($scope, $http) {
    $scope.servico = {};
-
-   // $http.get('http://rest-service.guides.spring.io/greeting')
-   //      .then(function(response){
-   //        $scope.servico  = response.data;
-   //          console.log(response.data.id);
-   //      });
-
-      //   $http.get('http://rest-service.guides.spring.io/greeting')
-      //  .success(function(response){
-      //    $scope.servico  = response;
-      //       console.log(response.id);
-      //  }).error(function(erro){
-      //    console.log(erro);
-      //  });
-
 
 })
 .controller('profileCtrl', function($scope, Auth,servicoAcad) {
@@ -36,7 +33,6 @@
 .controller('instituicaoCtrl', function($scope,instituicaoService,$state) {
   $scope.instituicao = {};
 
-//TODO  receber usuário
   $scope.carregar = function (){
     instituicaoService.buscarInstituicao().success(function(data){
       console.log(data);
@@ -105,9 +101,4 @@
        $scope.mensagem = '';
      }
 
-
-
-      // $scope.loginGoogle = function(){
-      //   Auth.loginGoogle();
-      // }
 });
