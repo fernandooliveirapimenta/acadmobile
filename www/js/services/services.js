@@ -55,7 +55,7 @@ angular.module('app.services', [])
 	return instService;
 })
 
-.factory('servicoAcad', function($cookieStore){
+.factory('servicoAcad', function(){
 
 
 	var servicoAcad = {};
@@ -64,15 +64,16 @@ angular.module('app.services', [])
 	servicoAcad.urlBase = servico;
 
    servicoAcad.colocarUsuarioNaSession = function (user) {
-     $cookieStore.put('usuario', user);
+		 var usuario = angular.toJson(user);
+	   localStorage.setItem("user",usuario);
 
    }
    servicoAcad.pegarUsuarioSession = function () {
-      return $cookieStore.get('usuario');
+		 var user = localStorage.getItem("user");
+     if(user !== null)
+      return angular.fromJson(user);
    }
-   servicoAcad.deletarUsuarioSession = function () {
-     $cookieStore.remove('usuario');
-   }
+
     return servicoAcad;
 
 
