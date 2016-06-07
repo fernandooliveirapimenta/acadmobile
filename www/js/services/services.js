@@ -9,7 +9,7 @@ angular.module('app.services', [])
 	var endpoint = 'https://authacad.firebaseio.com/';
 	var usersRef = new Firebase(endpoint);
 	var service = {};
-  service.auth=new $firebaseAuth(usersRef);
+  service.auth= $firebaseAuth(usersRef);
 
 	 service.loginAcad = function(user){
 		 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;

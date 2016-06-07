@@ -72,15 +72,39 @@
      });
 
        $scope.loginFace = function() {
-        Auth.auth.$authWithOAuthPopup('facebook').then(function(authData) {
-        $state.go('tabsController.eventos');
-      });
+        if($scope.authData === null) {
+
+          Auth.auth.$authWithOAuthPopup("facebook",function(error, authData ){
+              if (error) {
+                console.log("Login Failed!", error);
+              } else {
+                  $state.go("tabsController.eventos");
+              }
+          });
+
+        }
+        else{
+          $state.go("tabsController.eventos");
+        }
+
       };
 
+
       $scope.loginGoogle = function() {
-      Auth.auth.$authWithOAuthPopup('google').then(function(authData) {
-      $state.go('tabsController.eventos');
-    });
+        if($scope.authData === null ) {
+
+          Auth.auth.$authWithOAuthPopup("google",function(error, authData ){
+              if (error) {
+                console.log("Login Failed!", error);
+              } else {
+                  $state.go("tabsController.eventos");
+              }
+          });
+
+        }
+        else{
+          $state.go("tabsController.eventos");
+        }
     };
 
      $scope.esqueceuSenha = function(){
