@@ -72,13 +72,17 @@
      });
 
        $scope.loginFace = function() {
-        Auth.auth.$authWithOAuthPopup('facebook');
+        Auth.auth.$authWithOAuthPopup('facebook').then(function(authData) {
+        $state.go('tabsController.eventos');
+      });
       };
 
       $scope.loginGoogle = function() {
-      Auth.auth.$authWithOAuthPopup('google');
+      Auth.auth.$authWithOAuthPopup('google').then(function(authData) {
+      $state.go('tabsController.eventos');
+    });
     };
-    
+
      $scope.esqueceuSenha = function(){
       $state.go("esqueceusenha");
      };
