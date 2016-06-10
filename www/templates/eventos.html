@@ -1,30 +1,28 @@
 <ion-view style="" class=" " id="page2" title="Eventos" >
 
     <ion-content class="has-header" padding="true">
+      <ion-refresher on-refresh="carregar()">
+       </ion-refresher>
+        <div ng-if="eventos">
+          <div id="eventos" class="list card " ng-repeat="evento in eventos">
+              <ion-item  class="item-icon-left positive  ">
+                  <i class="icon ion-android-star"></i><h2>{{evento.Titulo}}</h2>
+              </ion-item>
+              <ion-item class="item-icon-left">
+                  <i class="icon ion-ios-timer-outline"></i> {{evento.DataFinal | date:'dd/MM/yyyy HH:mm'}}
+              </ion-item>
+              <div class="img-teste">
+                  <img  src="http://www.obusca.com.br/imovel/wp-content/themes/shandora/assets/images/sem-imagem.jpg">
+              </div>
+              <div  class="item item-body ">
+                      {{evento.Descricao}}
+              </div>
+              <ion-item  class="item-icon-left assertive  ">
+                  <i class="icon ion-ios-flower"></i>{{evento.Categoria.Nome}}
+              </ion-item>
 
-        <div id="eventos-card21" class="list card ">
-
-            <ion-item style="" id="eventos-list-item1" class="item-avatar  ">
-
-                <h2>Item</h2>
-
-            </ion-item>
-
-            <div class="img-teste">
-                <img  src="https://i.ytimg.com/vi/KGMqe7_8ORI/maxresdefault.jpg">
-            </div>
-
-            <div style="" id="eventos-list-item-container2" class="item item-body ">
-
-                <p class=" " style="margin-top:0px;color:#000000;" id="eventos-markdown3">Some friendly
-                    <strong>markdown</strong>
-                </p>
-            </div>
-
-            <ion-item style="" id="eventos-list-item2" class="item-icon-left assertive  ">
-                <i class="icon ion-music-note"></i>Play Song</ion-item>
+          </div>
         </div>
 
     </ion-content>
-    
 </ion-view>

@@ -8,9 +8,13 @@
     $http.get(eventoService.url()).success(function(data){
       console.log(data);
       $scope.eventos = angular.fromJson(data);
+
     }).error(function(erro){
       console.log(erro);
-    });
+    }).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
   }
 
    $scope.carregar();
