@@ -5,8 +5,8 @@
        </ion-refresher>
         <div ng-if="eventos">
           <div id="eventos" class="list card " ng-repeat="evento in eventos">
-              <ion-item  class="item-icon-left positive  ">
-                  <i class="icon ion-android-star"></i><h2>{{evento.Titulo}}</h2>
+              <ion-item  class="item-icon-left assertive">
+                  <i class="icon ion-pin"></i><h2>{{evento.Titulo}}</h2>
               </ion-item>
               <ion-item class="item-icon-left">
                   <i class="icon ion-ios-timer-outline"></i> {{evento.DataFinal | date:'dd/MM/yyyy HH:mm'}}
