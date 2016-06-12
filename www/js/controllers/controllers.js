@@ -1,13 +1,15 @@
  angular.module('app.controllers', [])
 
-.controller('eventosCtrl', function($scope,$http,eventoService) {
+.controller('eventosCtrl', function($scope,$http,eventoService,servicoAcad) {
 
   $scope.eventos = [];
+  $scope.repo = '';
 
   $scope.carregar = function(){
     $http.get(eventoService.url()).success(function(data){
       console.log(data);
       $scope.eventos = angular.fromJson(data);
+        $scope.repo = servicoAcad.repository;
 
     }).error(function(erro){
       console.log(erro);

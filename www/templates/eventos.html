@@ -12,7 +12,7 @@
                   <i class="icon ion-ios-timer-outline"></i> {{evento.DataFinal | date:'dd/MM/yyyy HH:mm'}}
               </ion-item>
               <div class="img-teste">
-                  <img  src="http://www.obusca.com.br/imovel/wp-content/themes/shandora/assets/images/sem-imagem.jpg">
+                  <img  ng-src="{{repo}}{{evento.ImagemEvento}}">
               </div>
               <div  class="item item-body ">
                       {{evento.Descricao}}

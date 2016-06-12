@@ -46,6 +46,7 @@ angular.module('app.services', [])
 .factory('servicoAcad', function(){
 	var servicoAcad = {};
   var servico = 'http://apiacad.azurewebsites.net/api/';
+	servicoAcad.repository= 'https://acadeventos.blob.core.windows.net';
 	servicoAcad.urlBase = servico;
    servicoAcad.colocarUsuarioNaSession = function (user) {
 		 var usuario = angular.toJson(user);
