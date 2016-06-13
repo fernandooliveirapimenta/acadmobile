@@ -1,22 +1,25 @@
 <ion-view style="" class=" " id="page5" title="Login">
+  <div class="bar bar-header laranja">
+    <div >
+       <img height="32px" width="32px"  src="img/azinho.png" >CAD
+    </div>
+
+    <h1 class="title" style="color: 	#FFFAFA;">Login</h1>
+  </div>
     <ion-content class="has-header" padding="true">
+
         <form class="list " id="login-form1">
             <div class="card">
                 <div class="item item-text-wrap" ng-if="mensagem">
                   <label class="assertive"  ng-click="sumir()" >{{mensagem}}</label>
                 </div>
-                <div class="item item-text-wrap">
-                    Login
-                </div>
                 <ion-list class=" " id="login-list3">
 
                 <label id="login-input1" class="item item-input ">
-                    <span class="input-label ion-android-person"></span>
-                    <input placeholder="" type="text" ng-model="user.email">
+                    <input placeholder="Email" type="text" ng-model="user.email">
                 </label>
                 <label id="login-input2" class="item item-input ">
-                    <span class="input-label ion-locked"></span>
-                    <input placeholder="" type="password" ng-model="user.senha">
+                    <input placeholder="Senha" type="password" ng-model="user.senha">
                 </label>
                 </ion-list>
                 <a ng-disabled="!user.email || !user.senha" class="button button-full button-dark" id="logar" ng-click="loginAcad(user)" >Logar</a>
@@ -25,7 +28,7 @@
                         <button id="login-button10"  class=" button button-assertive button-block button-small icon ion-social-google " ng-click="loginGoogle()"> +</button>
                     </div>
                 <button class=" button button-dark  button-block button-clear " id="esqueceuSenha" ng-click="esqueceuSenha()">Esqueceu a senha?</button >
-                <a class=" button button-dark  button-block button-clear " id="criarConta" onclick="window.open('https://www.youtube.com/?hl=pt&gl=BR', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta?</a>
+                <a class=" button button-dark  button-block button-clear " id="criarConta" onclick="window.open('http://acadeventos.azurewebsites.net/Account/Register', '_system', 'location=yes'); return false;" href="#">Ou Criar Conta?</a>
             </div>
         </form>
     </ion-content>
