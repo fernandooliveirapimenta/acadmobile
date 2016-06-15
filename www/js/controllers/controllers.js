@@ -61,6 +61,13 @@
   $scope.email = '';
 
 })
+.controller('criarContaCtrl', function($scope, $state) {
+
+  $scope.voltar = function(){
+   $state.go("login");
+  };
+
+})
 .controller('loginCtrl', function($scope, Auth, $state,servicoAcad,$http) {
 
       Auth.auth.$onAuth(function(authData){
@@ -130,6 +137,8 @@
          $scope.userSession = angular.fromJson(data);
          servicoAcad.colocarUsuarioNaSession($scope.userSession);
          console.log($scope.userSession);
+         $scope.user.email = '';
+         $scope.user.senha = '';
           $state.go("tabsController.eventos");
        }).error(function(erro){
          $state.go("login");
@@ -139,6 +148,10 @@
      }
      $scope.sumir = function () {
        $scope.mensagem = '';
+     }
+
+     $scope.criarconta = function(){
+       $state.go("criarconta");
      }
 
 });
