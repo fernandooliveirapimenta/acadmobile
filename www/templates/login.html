@@ -10,8 +10,8 @@
 
         <form class="list " id="login-form1">
             <div class="card">
-                <div class="item item-text-wrap" ng-if="mensagem">
-                  <label class="assertive"  ng-click="sumir()" >{{mensagem}}</label>
+                <div class="item item-text-wrap item-assertive" ng-if="mensagem">
+                  <label class=""  ng-click="sumir()" > <h2>{{mensagem}}</h2></label>
                 </div>
                 <ion-list class=" " id="login-list3">
 
@@ -22,13 +22,16 @@
                     <input placeholder="Senha" type="password" ng-model="user.senha">
                 </label>
                 </ion-list>
-                <a ng-disabled="!user.email || !user.senha" class="button button-full button-dark" id="logar" ng-click="loginAcad(user)" >Logar</a>
+                <a ng-disabled="!user.email || !user.senha" class="button button-full button-dark icon ion-android-send" id="logar" ng-click="loginAcad(user)" ></a>
                 <div class="button-bar">
-                      <button id="login-button11" class=" button button-royal button-block button-small  icon ion-social-facebook " ng-click="loginFace()"></button>
-                        <button id="login-button10"  class=" button button-assertive button-block button-small icon ion-social-google " ng-click="loginGoogle()"> +</button>
+                      <button id="login-button11" class=" button button-dark button-block button-small  icon ion-social-facebook " ng-click="loginFace()"></button>
+                      <button class=" button button-small  laranja button-block button-small " id="esqueceuSenha" ng-click="esqueceuSenha()">Recuperar senha</button >
+
                 </div>
-                <button class=" button button-dark  button-block button-clear " id="esqueceuSenha" ng-click="esqueceuSenha()">Esqueceu a senha?</button >
-                <a class=" button button-dark  button-block button-clear " id="criarConta" ng-click="criarconta()">Ou Criar Conta?</a>
+                <div class="button-bar">
+                  <button id="login-button10"  class=" button button-dark button-block button-small icon ion-social-google " ng-click="loginGoogle()"> +</button>
+                  <a class=" button button-small  laranja button-block button-small " id="criarConta" ng-click="criarconta()">Criar conta</a>
+                </div>
             </div>
         </form>
     </ion-content>

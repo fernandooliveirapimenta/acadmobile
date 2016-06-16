@@ -22,14 +22,40 @@ angular.module('app.services', [])
 })
 
 
-.factory('instituicaoService', function(servicoAcad){
+.factory('instituicaoService', function(servicoAcad,loadingService){
 	instService = {};
 	instService.buscarInstituicao = function(){
 		var user = servicoAcad.pegarUsuarioSession();
-		var urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
+    var urlInstituicao = '';
+		if(user != null){
+		 urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
+
+	 }else{
+			urlInstituicao = null;
+			loadingService.close();
+		}
 		return urlInstituicao ;
 	}
 	return instService;
+})
+.factory('loadingService', function($ionicLoading){
+	loadingService = {};
+
+	loadingService.open = function(){
+		$ionicLoading.show({
+			content: 'Loading',
+			animation: 'fade-in',
+			showBackdrop: true,
+			maxWidth: 200,
+			showDelay: 0
+		});
+	}
+
+	loadingService.close = function(){
+		$ionicLoading.hide();
+	}
+
+	return loadingService;
 })
 
 
@@ -54,8 +80,13 @@ angular.module('app.services', [])
    }
    servicoAcad.pegarUsuarioSession = function () {
 		 var user = localStorage.getItem("user");
-     if(user !== null)
-      return angular.fromJson(user);
+     if(user != null){
+			 return angular.fromJson(user);
+		 }
+		 else{
+			 return null;
+		 }
+
    }
     return servicoAcad;
 })

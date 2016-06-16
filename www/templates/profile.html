@@ -2,7 +2,8 @@
 
 <ion-view style="" class=" " id="page6" title="Perfil">
     <ion-content class="has-header" padding="true">
-        <form class="list " id="login-form1">
+      <ion-refresher on-refresh="carregar()">
+       </ion-refresher>
              <div  ng-if="authData.facebook" class="list card">
 			     <div class="item item-avatar">
 			           <img ng-src="{{authData.facebook.profileImageURL}}" >
@@ -30,6 +31,5 @@
 			  Sair
 			</button>
 
-        </form>
     </ion-content>
 </ion-view>

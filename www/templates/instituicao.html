@@ -1,8 +1,24 @@
 <ion-view style="" class=" " id="page4" title="Instituição">
 
     <ion-content class="has-header" padding="true" overflow-scroll="true">
-      
-      <div ng-if="instituicao">
+      <ion-refresher on-refresh="carregar()">
+       </ion-refresher>
+      <div ng-if="falgConta == 0">
+        <div class="card">
+
+          <p>Ainda não tem conta?</p>
+
+            <p>Por enquanto você só tem acesso aos eventos e notícias públicos.</p>
+<br>
+            <p>Crie uma conta e fique por dentro dos eventos e notícias de sua instituição !</p>
+<br>
+
+            <a class=" button button-small  laranja button-block button-small " id="criarConta" ng-click="criarconta()">Criar conta</a>
+
+
+          </div>
+      </div>
+      <div ng-if="falgConta == 1">
         <div class="card" >
           <div class="item item-divider item-dark">
           {{instituicao.Nome}}
