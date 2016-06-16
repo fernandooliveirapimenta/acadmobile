@@ -61,8 +61,13 @@ angular.module('app.services', [])
 
 .factory('eventoService', function(servicoAcad){
 	eventService = {};
+
 	eventService.url = function(){
+		var user = servicoAcad.pegarUsuarioSession();
 		var urlevent =  servicoAcad.urlBase +'evento';
+		if(user != null)
+		  urlevent +'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
+
 		return urlevent;
 	}
 	return eventService;
