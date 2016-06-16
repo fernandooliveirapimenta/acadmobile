@@ -24,8 +24,28 @@
 
    $scope.carregar();
 })
-.controller('noticiasCtrl', function($scope, $http, loadingService) {
-   $scope.servico = {};
+.controller('noticiasCtrl', function($scope, $http, loadingService,noticiaService,servicoAcad) {
+  $scope.noticias = [];
+  $scope.repo = '';
+  loadingService.open();
+  $scope.carregar = function(){
+    loadingService.open();
+    $http.get(noticiaService.url()).success(function(data){
+      console.log(data);
+      $scope.noticias = angular.fromJson(data);
+        $scope.repo = servicoAcad.repository;
+          loadingService.open();
+    }).error(function(erro){
+      console.log(erro);
+          loadingService.close();
+    }).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+         loadingService.close();
+     });
+  }
+
+   $scope.carregar();
 
 })
 .controller('profileCtrl', function($scope, Auth,servicoAcad, loadingService) {
@@ -94,7 +114,7 @@
 
   $timeout(function () {
    loadingService.close();
- }, 8000);
+ }, 10000);
 
   $scope.voltar = function(){
    $state.go("login");

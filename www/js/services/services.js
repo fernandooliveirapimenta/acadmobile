@@ -66,11 +66,24 @@ angular.module('app.services', [])
 		var user = servicoAcad.pegarUsuarioSession();
 		var urlevent =  servicoAcad.urlBase +'evento';
 		if(user != null)
-		  urlevent +'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
+		  urlevent +='/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
 
 		return urlevent;
 	}
 	return eventService;
+})
+.factory('noticiaService', function(servicoAcad){
+	noticiaService = {};
+
+	noticiaService.url = function(){
+		var user = servicoAcad.pegarUsuarioSession();
+		var urlnoticia =  servicoAcad.urlBase +'noticia';
+		if(user != null)
+		  urlnoticia +='/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
+
+		return urlnoticia;
+	}
+	return noticiaService;
 })
 
 
