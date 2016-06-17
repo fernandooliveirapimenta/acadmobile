@@ -180,6 +180,20 @@ toast.show = function(msg){
 		 }
 
    }
+	 servicoAcad.colocarAuthSession = function (authData) {
+		var authData = angular.toJson(authData);
+		localStorage.setItem("auth",authData);
+	 }
+	 servicoAcad.pegarAuthSession = function () {
+		var authData = localStorage.getItem("auth");
+		 if(authData != null){
+			return angular.fromJson(authData);
+		}
+		else{
+			return null;
+		}
+
+	 }
     return servicoAcad;
 })
 
