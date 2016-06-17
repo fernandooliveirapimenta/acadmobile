@@ -59,8 +59,9 @@ angular.module('app.services', [])
 })
 
 
-.factory('eventoService', function(servicoAcad){
+.factory('eventoService', function(servicoAcad, $cordovaCalendar,toastService){
 	eventService = {};
+	eventService.eventFlagDeixar = 0;
 
 	eventService.url = function(){
 		var user = servicoAcad.pegarUsuarioSession();
@@ -70,6 +71,64 @@ angular.module('app.services', [])
 
 		return urlevent;
 	}
+
+	eventService.createEvent = function(evento) {
+		var teste = eventService.findEvent(evento);
+
+
+			$cordovaCalendar.createEvent({
+					title: evento.Titulo,
+					location: evento.Categoria.Nome,
+					notes: evento.Descricao,
+					startDate: new Date(evento.DataInicial),
+					endDate: new Date(evento.DataFinal)
+			}).then(function (result) {
+				 toastService.show('Evento adiconado ao seu calendário');
+			}, function (err) {
+					console.error("There was an error: " + err);
+			});
+
+
+
+	}
+
+	eventService.deleteEvent = function(evento){
+		var teste = eventService.findEvent(evento);
+
+			$cordovaCalendar.deleteEvent({
+				title: evento.Titulo,
+				location: evento.Categoria.Nome,
+				notes: evento.Descricao,
+				startDate: new Date(evento.DataInicial),
+				endDate: new Date(evento.DataFinal)
+		  }).then(function (result) {
+		    toastService.show('Removido do seu calendário');
+		  }, function (err) {
+		    console.log(err);
+		  });
+
+
+	}
+
+
+eventService.findEvent = function(evento){
+	var retorno = {};
+	$cordovaCalendar.findEvent({
+		title: evento.Titulo,
+		location: evento.Categoria.Nome,
+		notes: evento.Descricao,
+		startDate: new Date(evento.DataInicial),
+		endDate: new Date(evento.DataFinal)
+  }).then(function (result) {
+		retorno = result;
+  }, function (err) {
+
+  });
+
+	return retorno
+}
+
+
 	return eventService;
 })
 .factory('noticiaService', function(servicoAcad){
@@ -86,6 +145,21 @@ angular.module('app.services', [])
 	return noticiaService;
 })
 
+.factory('toastService', function($cordovaToast){
+
+ toast = {};
+toast.show = function(msg){
+	$cordovaToast.show(msg, 'long', 'center').then(function(success) {
+		// success
+	}, function (error) {
+		// error
+	});
+}
+ return toast;
+
+
+
+})
 
 .factory('servicoAcad', function(){
 	var servicoAcad = {};

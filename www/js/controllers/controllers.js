@@ -1,17 +1,17 @@
  angular.module('app.controllers', [])
 
-.controller('eventosCtrl', function($scope,$http,eventoService,servicoAcad,loadingService) {
+.controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService) {
 
   $scope.eventos = [];
   $scope.repo = '';
-  loadingService.open();
+  $scope.flagacao = 0;
   $scope.carregar = function(){
     loadingService.open();
     $http.get(eventoService.url()).success(function(data){
       console.log(data);
       $scope.eventos = angular.fromJson(data);
-        $scope.repo = servicoAcad.repository;
-          loadingService.open();
+      $scope.repo = servicoAcad.repository;
+      loadingService.close();
     }).error(function(erro){
       console.log(erro);
           loadingService.close();
@@ -21,6 +21,16 @@
          loadingService.close();
      });
   }
+
+//   angular.forEach($scope.eventos, function(evento) {
+//  eventoService.deleteEvent(evento);
+// });
+   $scope.participar = function(evento){
+        eventoService.createEvent(evento);
+   }
+   $scope.deixar = function(evento){
+       eventoService.deleteEvent(evento);
+   }
 
    $scope.carregar();
 })
@@ -119,6 +129,33 @@
   $scope.voltar = function(){
    $state.go("login");
   };
+
+
+  var email = {
+    to: 'fernando.pimenta107@gmail.com',
+    attachments: [
+      'img/logolaranja.png'
+    ],
+    subject: 'ACAD Eventos e Noticias',
+    body: 'Testetetet',
+    isHtml: true
+  };
+
+//   $scope.sendEmail = function() {
+//           window.cordova.plugins.email.open({
+//                 to:          ["fernando.pimenta107@gmail.com"], // email addresses for TO field
+//                 subject:    "Just some images", // subject of the email
+//                 body:       '<h1>dd</h1>', // email body (for HTML, set isHtml to true)
+//                 isHtml:    true, // indicats if the body is HTML or plain text
+//             }, function () {
+//                 console.log('email view dismissed');
+//             },
+//             this);
+//
+// }
+
+
+}
 
 })
 .controller('loginCtrl', function($scope, Auth, $timeout,$state,servicoAcad,$http,loadingService) {

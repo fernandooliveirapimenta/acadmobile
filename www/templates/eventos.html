@@ -5,11 +5,16 @@
        </ion-refresher>
         <div ng-if="eventos">
           <div id="eventos" class="list card " ng-repeat="evento in eventos">
-              <ion-item  class="item-icon-left assertive">
-                  <i class="icon ion-pin"></i><h2>{{evento.Titulo}}</h2>
+
+            <div>
+              <button class="button laranja icon-left ion-heart"  ng-click="participar(evento)">participar</button>
+              <button ng-click="deixar(evento)"  class="button laranja icon-left ion-trash-b"> deixar</button>
+            </div>
+              <ion-item  class="item-icon-left item-dark assertive">
+                  <i class="icon ion-pin"></i>{{evento.Titulo}}
               </ion-item>
               <ion-item class="item-icon-left">
-                  <i class="icon ion-ios-timer-outline"></i> {{evento.DataFinal | date:'dd/MM/yyyy'}}
+                  <i class="icon ion-ios-timer-outline"></i> {{evento.DataInicial | date:'dd/MM/yyyy'}}-{{evento.DataFinal | date:'dd/MM/yyyy'}}
               </ion-item>
               <div class="img-teste">
                   <img  ng-src="{{repo}}{{evento.ImagemEvento}}">

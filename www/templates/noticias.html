@@ -2,7 +2,25 @@
   <ion-content class="has-header" padding="true">
     <ion-refresher on-refresh="carregar()">
      </ion-refresher>
-    
+     <div ng-repeat="noticia in noticias | orderBy:'-DataPostagem'">
+       <div ng-if="noticia">
+         <div id="noticia" class="list card ">
+
+        <ion-item  class="item-body  item-dark">
+          {{noticia.Titulo}}
+        </ion-item>
+
+          <i class="icon icon-left ion-ios-timer-outline"></i> {{noticia.DataPostagem | date:'dd/MM/yyyy'}}
+             <div class="img-teste">
+                 <img  ng-src="{{repo}}{{noticia.ImagemNoticia}}">
+             </div>
+             <div  class="item item-body ">
+                     {{noticia.Descricao}}
+             </div>
+           </div>
+       </div>
+
+     </div>
 
   </ion-content>
 </ion-view>
