@@ -131,16 +131,6 @@
   };
 
 
-  var email = {
-    to: 'fernando.pimenta107@gmail.com',
-    attachments: [
-      'img/logolaranja.png'
-    ],
-    subject: 'ACAD Eventos e Noticias',
-    body: 'Testetetet',
-    isHtml: true
-  };
-
 //   $scope.sendEmail = function() {
 //           window.cordova.plugins.email.open({
 //                 to:          ["fernando.pimenta107@gmail.com"], // email addresses for TO field
@@ -155,7 +145,6 @@
 // }
 
 
-}
 
 })
 .controller('loginCtrl', function($scope, Auth, $timeout,$state,servicoAcad,$http,loadingService) {
