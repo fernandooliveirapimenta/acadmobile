@@ -1,14 +1,6 @@
 <ion-view style="" class=" " id="page2" title="Eventos" >
 
     <ion-content class="has-header" padding="true">
-      <div >
-          <div ng-if="user">
-            agendados
-          </div>
-         <div ng-if="user">
-            <span style="" class="badge badge-assertive">{{agendados}}</span>
-         </div>
-    </div>
 
       <ion-refresher on-refresh="carregar()">
        </ion-refresher
@@ -51,4 +43,8 @@
         </div>
 
     </ion-content>
+        <ion-footer-bar align-title="center" class="bar-dark">
+         <h1 class="title">Agendados <span style="" class="badge badge-assertive">{{agendados}}</span></h1>
+
+    </ion-footer-bar>
 </ion-view>
