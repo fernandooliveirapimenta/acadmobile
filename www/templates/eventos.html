@@ -1,8 +1,18 @@
 <ion-view style="" class=" " id="page2" title="Eventos" >
 
     <ion-content class="has-header" padding="true">
+      <div >
+          <div ng-if="user">
+            agendados
+          </div>
+         <div ng-if="user">
+            <span style="" class="badge badge-assertive">{{agendados}}</span>
+         </div>
+    </div>
+
       <ion-refresher on-refresh="carregar()">
-       </ion-refresher>
+       </ion-refresher
+
         <div ng-if="eventos">
           <div id="eventos" class="list card " ng-repeat="evento in eventos">
 
@@ -21,7 +31,7 @@
                       <br>
                       <i class="icon ion-ios-timer-outline"></i> {{evento.DataInicial | date:'dd/MM/yyyy'}}-{{evento.DataFinal | date:'dd/MM/yyyy'}}
               </div>
-              <div>
+              <div ng-if="user">
                 <div class="row">
                   <div class="col col-80">
                     <button class="button icon ion-navicon-round" ng-click="agendado(evento)"></button>

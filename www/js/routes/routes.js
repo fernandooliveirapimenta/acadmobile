@@ -43,8 +43,8 @@ angular.module('app.routes', [])
   .state('tabsController', {
     url: '/page1',
     templateUrl: 'templates/tabsController.html',
-    abstract:true,
-    controller: 'agendadosCtrl'
+    abstract:true
+
   })
 
   .state('login', {

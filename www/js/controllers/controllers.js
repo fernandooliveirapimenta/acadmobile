@@ -1,11 +1,10 @@
  angular.module('app.controllers', [])
 
 .controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService) {
-
-  $scope.eventos = {};
-  $scope.repo = '';
-  $scope.flagacao = 0;
+  $scope.eventos = {};  $scope.repo = '';  $scope.flagacao = 0;  $scope.user = null;   $scope.agendados = 0;
   $scope.carregar = function(){
+    $scope.agendados =  eventoService.quantidade();
+    $scope.user = servicoAcad.pegarUsuarioSession();
     loadingService.open();
     $http.get(eventoService.url()).success(function(data){
       console.log(data);
@@ -22,32 +21,31 @@
      });
   }
 
-//   angular.forEach($scope.eventos, function(evento) {
-//  eventoService.deleteEvent(evento);
-// });
    $scope.participar = function(evento){
      evento.Usuario.Estado = 1;
      evento.IdCurso=null;
-        eventoService.createEvent(evento);
+     eventoService.createEvent(evento, $scope);
    }
    $scope.deixar = function(evento){
      evento.IdCurso=null;
      evento.Usuario.Estado = 0;
-       eventoService.deleteEvent(evento);
+     eventoService.deleteEvent(evento,$scope);
 
    }
    $scope.agendado = function(evento){
-     evento.IdCurso = 8;
+      evento.IdCurso = 8;
       var retorno = eventoService.findEvent(evento);
       evento.Usuario.Estado= retorno;
    }
-
    $scope.carregar();
 })
+
+
+
+
+
 .controller('noticiasCtrl', function($scope, $http, loadingService,noticiaService,servicoAcad) {
-  $scope.noticias = [];
-  $scope.repo = '';
-  loadingService.open();
+  $scope.noticias = [];  $scope.repo = '';  loadingService.open();
   $scope.carregar = function(){
     loadingService.open();
     $http.get(noticiaService.url()).success(function(data){
@@ -64,10 +62,11 @@
          loadingService.close();
      });
   }
-
    $scope.carregar();
-
 })
+
+
+
 .controller('profileCtrl', function($scope, Auth,servicoAcad, loadingService) {
   loadingService.open();
    Auth.auth.$onAuth(function(authData){
@@ -84,18 +83,11 @@
     }
     $scope.carregar();
 })
-.controller('agendadosCtrl', function($scope, eventoService) {
-  $scope.agendados = 0;
-  $scope.agendados =  eventoService.agendados.agendados.length;
-
-})
 
 .controller('instituicaoCtrl', function($scope,instituicaoService,$state,$http,loadingService) {
   $scope.instituicao = {};
   loadingService.open();
   $scope.falgConta = 0;
-
-
   $scope.carregar = function (){
     loadingService.open();
     if(instituicaoService.buscarInstituicao()!= null){
@@ -104,131 +96,75 @@
         $scope.instituicao = angular.fromJson(data);
         $scope.falgConta =1;
         loadingService.close();
-
          $state.go("tabsController.instituicao");
            $scope.$broadcast('scroll.refreshComplete');
       }).error(function(erro){
         console.log(erro);
         loadingService.close();
-
       });
     }
-
-
   };
-
   $scope.criarconta = function(){
     $state.go("criarconta");
   }
-
   $scope.carregar();
-
-
 })
+
+
+
+
 .controller('esqueceuSenhaCtrl', function($scope, $state) {
-
-  $scope.esqueciSenha = function(){
-   $state.go("login");
-  };
+  $scope.esqueciSenha = function(){ $state.go("login");};
   $scope.email = '';
-
 })
+
+
+
+
+
+
 .controller('criarContaCtrl', function($scope, $state,loadingService,$timeout) {
-
   loadingService.open();
-
-  $timeout(function () {
-   loadingService.close();
- }, 10000);
-
-  $scope.voltar = function(){
-   $state.go("login");
-  };
-
-
-//   $scope.sendEmail = function() {
-//           window.cordova.plugins.email.open({
-//                 to:          ["fernando.pimenta107@gmail.com"], // email addresses for TO field
-//                 subject:    "Just some images", // subject of the email
-//                 body:       '<h1>dd</h1>', // email body (for HTML, set isHtml to true)
-//                 isHtml:    true, // indicats if the body is HTML or plain text
-//             }, function () {
-//                 console.log('email view dismissed');
-//             },
-//             this);
-//
-// }
-
-
-
+  $timeout(function () { loadingService.close();}, 10000);
+  $scope.voltar = function(){ $state.go("login"); };
 })
-.controller('loginCtrl', function($scope, Auth, $timeout,$state,servicoAcad,$http,loadingService) {
 
+
+
+.controller('loginCtrl', function($scope, Auth, $timeout,$state,servicoAcad,$http,loadingService) {
       Auth.auth.$onAuth(function(authData){
       if(authData ===null){
         console.log("Usuario nao autentica");
         $state.go("login");
       }
-      else{
-        console.log("autenticado");
-        console.log(authData);
-        $state.go("tabsController.eventos");
-
-      }
+      else{ console.log("autenticado"); console.log(authData); $state.go("tabsController.eventos"); }
       $scope.authData = authData;
      });
-
        $scope.loginFace = function() {
-        if($scope.authData === null || $scope.authData.google ) {
-
-          Auth.auth.$authWithOAuthPopup("facebook",function(error, authData ){
-              if (error) {
-                console.log("Login Failed!", error);
-              } else {
-                  $state.go("tabsController.eventos");
-              }
+        if($scope.authData === null || $scope.authData.google ) { Auth.auth.$authWithOAuthPopup("facebook",function(error, authData ){
+              if (error) { console.log("Login Failed!", error); } else { $state.go("tabsController.eventos"); }
           });
 
         }
-        else{
-          $state.go("tabsController.eventos");
-        }
+        else{$state.go("tabsController.eventos");}
 
       };
-
-
       $scope.loginGoogle = function() {
-        if($scope.authData === null || $scope.authData.facebook ) {
-
-          Auth.auth.$authWithOAuthPopup("google",function(error, authData ){
-              if (error) {
-                console.log("Login Failed!", error);
-              } else {
-                  $state.go("tabsController.eventos");
-              }
+        if($scope.authData === null || $scope.authData.facebook ) { Auth.auth.$authWithOAuthPopup("google",function(error, authData ){
+              if (error) { console.log("Login Failed!", error); } else { $state.go("tabsController.eventos"); }
           });
 
         }
-        else{
-          $state.go("tabsController.eventos");
-        }
+        else{ $state.go("tabsController.eventos");}
     };
-
-     $scope.esqueceuSenha = function(){
-      $state.go("esqueceusenha");
-     };
-
-     $scope.user ={
-       email: '',
-       senha: ''
-     };
+     $scope.esqueceuSenha = function(){ $state.go("esqueceusenha");};
+     $scope.user ={ email: '', senha: '' };
      $scope.mensagem = '';
      $scope.userSession = {};
-
      $scope.loginAcad = function(user){
        loadingService.open();
       $http.get(Auth.loginAcad(user)).success(function(data){
-         console.log(data);
+               console.log(data);
          $scope.userSession = angular.fromJson(data);
          servicoAcad.colocarUsuarioNaSession($scope.userSession);
          console.log($scope.userSession);
@@ -246,12 +182,6 @@
          console.log(erro);
        });
      }
-     $scope.sumir = function () {
-       $scope.mensagem = '';
-     }
-
-     $scope.criarconta = function(){
-       $state.go("criarconta");
-     }
-
+     $scope.sumir = function () { $scope.mensagem = ''; }
+     $scope.criarconta = function(){ $state.go("criarconta"); }
 });

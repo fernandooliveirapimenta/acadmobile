@@ -10,7 +10,6 @@ angular.module('app.services', [])
 	var usersRef = new Firebase(endpoint);
 	var service = {};
   service.auth= $firebaseAuth(usersRef);
-
 	 service.loginAcad = function(user){
 		 	var urlLogin =  servicoAcad.urlBase + 'account/?email='+user.email+'&senha='+user.senha;
 			return urlLogin;
@@ -29,7 +28,6 @@ angular.module('app.services', [])
     var urlInstituicao = '';
 		if(user != null){
 		 urlInstituicao =  servicoAcad.urlBase +'instituicao'+'/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
-
 	 }else{
 			urlInstituicao = null;
 			loadingService.close();
@@ -40,7 +38,6 @@ angular.module('app.services', [])
 })
 .factory('loadingService', function($ionicLoading){
 	loadingService = {};
-
 	loadingService.open = function(){
 		$ionicLoading.show({
 			content: 'Loading',
@@ -50,34 +47,25 @@ angular.module('app.services', [])
 			showDelay: 0
 		});
 	}
-
 	loadingService.close = function(){
 		$ionicLoading.hide();
 	}
-
 	return loadingService;
 })
 
-
 .factory('eventoService', function(servicoAcad, $cordovaCalendar,toastService){
-	eventService = {};
-	eventService.eventFlagDeixar = 0;
-	eventService.agendados = new getAgendados();
-
+	eventService = {};	eventService.eventFlagDeixar = 0;	eventService.agendados = new getAgendados();
 	eventService.url = function(){
 		var user = servicoAcad.pegarUsuarioSession();
 		var urlevent =  servicoAcad.urlBase +'evento';
-		if(user != null)
+		if(user !== null)
 		  urlevent +='/'+user.IdUsuario+'?perfil='+user.PerfilUsuario;
 
 		return urlevent;
 	}
 
-	eventService.createEvent = function(evento) {
-
-
-	     if(eventService.addAgendamento(evento)){
-
+	eventService.createEvent = function(evento, $scope) {
+	     if(eventService.addAgendamento(evento,$scope)){
 			$cordovaCalendar.createEventInteractively({
 					title: evento.Titulo,
 					location: evento.Categoria.Nome,
@@ -92,14 +80,11 @@ angular.module('app.services', [])
     }
 		else {
 			toastService.show('Você já participa desse evento');
-
 		}
-
-
 	}
 
-	eventService.deleteEvent = function(evento){
-     if(eventService.removeAgendamento(evento)){
+	eventService.deleteEvent = function(evento, $scope){
+     if(eventService.removeAgendamento(evento, $scope)){
 				 $cordovaCalendar.deleteEvent({
 	 				title: evento.Titulo,
 	 				location: evento.Categoria.Nome,
@@ -111,56 +96,61 @@ angular.module('app.services', [])
 	 		  }, function (err) {
 	 		    console.log(err);
 	 		  });
-
 		 }
 		 else {
 			 toastService.show('Você ainda não participa desse evento');
-
 		 }
-
-
 	}
 
-
-
-	eventService.removeAgendamento = function(evento){
+	eventService.removeAgendamento = function(evento, $scope){
     var retorno = false;
-		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
-		if(IdUsuario!==null)
-		  retorno= eventService.agendados.remove(IdUsuario,evento);
+		var user = servicoAcad.pegarUsuarioSession();
+		if(user!==null){
+			retorno= eventService.agendados.remove(user.IdUsuario,evento);
+       $scope.agendados =  eventService.quantidade();
+		}
 
 			return retorno;
 	};
 
-
-	eventService.addAgendamento=function(evento){
+	eventService.addAgendamento=function(evento, $scope){
 		var retorno = false;
-
-		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
-		if(IdUsuario !== null){
-
-			var agendamento= {IdUsuario:IdUsuario,evento};
+		var user = servicoAcad.pegarUsuarioSession();
+		if(user !== null){
+			var agendamento= {IdUsuario:user.IdUsuario,evento};
 			retorno = eventService.agendados.add(agendamento);
+			$scope.agendados =  eventService.quantidade();
+
 		}
 		return retorno;
 	};
 
 	eventService.findEvent = function(evento){
 		var retorno = 1 //btnExcluir abilitado
-
-		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
-		if(IdUsuario !== null){
-			var agendamento = eventService.agendados.find(IdUsuario, evento);
+		var user = servicoAcad.pegarUsuarioSession();
+		if(user !== null){
+			var agendamento = eventService.agendados.find(user.IdUsuario, evento);
        if(agendamento ===null)
 			    retorno =0;
 		}
 		return retorno;
 	}
 
-
+ eventService.quantidade = function(){
+	 var retorno = 0;
+	 var user = servicoAcad.pegarUsuarioSession();
+	 if(user !== null){
+		 var agendamento = eventService.agendados.agendamentos(user.IdUsuario);
+			if(agendamento !==null)
+				 retorno = agendamento;
+	 }
+	 return retorno;
+ }
 
 	return eventService;
 })
+
+
 .factory('noticiaService', function(servicoAcad){
 	noticiaService = {};
 
@@ -176,7 +166,6 @@ angular.module('app.services', [])
 })
 
 .factory('toastService', function($cordovaToast){
-
  toast = {};
 toast.show = function(msg){
 	$cordovaToast.show(msg, 'long', 'center').then(function(success) {
@@ -186,10 +175,10 @@ toast.show = function(msg){
 	});
 }
  return toast;
-
-
-
 })
+
+
+
 
 .factory('servicoAcad', function(){
 	var servicoAcad = {};
@@ -208,7 +197,6 @@ toast.show = function(msg){
 		 else{
 			 return null;
 		 }
-
    }
 	 servicoAcad.colocarAuthSession = function (authData) {
 		var authData = angular.toJson(authData);
@@ -222,7 +210,6 @@ toast.show = function(msg){
 		else{
 			return null;
 		}
-
 	 }
     return servicoAcad;
 })

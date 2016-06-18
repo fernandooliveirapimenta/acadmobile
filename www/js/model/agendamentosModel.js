@@ -55,4 +55,15 @@ function getAgendados(){
     return retorno;
   }
 
+
+    this.agendamentos = function(IdUsuario){
+      var retorno = [];
+        angular.forEach(this.getAgendamentos(), function(agendamento) {
+             if(agendamento !== null && agendamento.IdUsuario ==IdUsuario)
+               retorno.push(agendamento);
+      });
+
+      return retorno.length;
+    }
+
 }
