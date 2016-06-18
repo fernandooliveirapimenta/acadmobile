@@ -111,7 +111,6 @@ angular.module('app.services', [])
 		var user = servicoAcad.pegarUsuarioSession();
 		if(user!==null){
 			retorno= eventService.agendados.remove(user.IdUsuario,evento);
-       $scope.agendados =  eventService.quantidade();
 		}
 
 			return retorno;
