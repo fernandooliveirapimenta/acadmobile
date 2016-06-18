@@ -74,6 +74,8 @@ angular.module('app.services', [])
 					endDate: new Date(evento.DataFinal)
 			}).then(function (result) {
 				 toastService.show('Evento adiconado ao seu calendário');
+				 $scope.agendados =  eventService.quantidade();
+
 			}, function (err) {
 					console.error("There was an error: " + err);
 			});
@@ -93,6 +95,8 @@ angular.module('app.services', [])
 	 				endDate: new Date(evento.DataFinal)
 	 		  }).then(function (result) {
 	 		    toastService.show('Removido do seu calendário');
+					$scope.agendados =  eventService.quantidade();
+
 	 		  }, function (err) {
 	 		    console.log(err);
 	 		  });
@@ -102,7 +106,7 @@ angular.module('app.services', [])
 		 }
 	}
 
-	eventService.removeAgendamento = function(evento, $scope){
+	eventService.removeAgendamento = function(evento){
     var retorno = false;
 		var user = servicoAcad.pegarUsuarioSession();
 		if(user!==null){
@@ -113,13 +117,12 @@ angular.module('app.services', [])
 			return retorno;
 	};
 
-	eventService.addAgendamento=function(evento, $scope){
+	eventService.addAgendamento=function(evento){
 		var retorno = false;
 		var user = servicoAcad.pegarUsuarioSession();
 		if(user !== null){
 			var agendamento= {IdUsuario:user.IdUsuario,evento};
 			retorno = eventService.agendados.add(agendamento);
-			$scope.agendados =  eventService.quantidade();
 
 		}
 		return retorno;
