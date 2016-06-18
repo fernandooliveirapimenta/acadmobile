@@ -63,6 +63,7 @@ angular.module('app.routes', [])
 
   .state('tabsController.profile', {
     url: '/Profile',
+    cache : false,
     views: {
       'tab4': {
         templateUrl: 'templates/profile.html',

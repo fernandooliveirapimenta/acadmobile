@@ -73,10 +73,9 @@ angular.module('app.services', [])
 	}
 
 	eventService.createEvent = function(evento) {
-		var teste = eventService.findEvent(evento);
 
 
-			$cordovaCalendar.createEvent({
+			$cordovaCalendar.createEventInteractively({
 					title: evento.Titulo,
 					location: evento.Categoria.Nome,
 					notes: evento.Descricao,
@@ -93,7 +92,6 @@ angular.module('app.services', [])
 	}
 
 	eventService.deleteEvent = function(evento){
-		var teste = eventService.findEvent(evento);
 
 			$cordovaCalendar.deleteEvent({
 				title: evento.Titulo,
@@ -110,23 +108,6 @@ angular.module('app.services', [])
 
 	}
 
-
-eventService.findEvent = function(evento){
-	var retorno = {};
-	$cordovaCalendar.findEvent({
-		title: evento.Titulo,
-		location: evento.Categoria.Nome,
-		notes: evento.Descricao,
-		startDate: new Date(evento.DataInicial),
-		endDate: new Date(evento.DataFinal)
-  }).then(function (result) {
-		retorno = result;
-  }, function (err) {
-
-  });
-
-	return retorno
-}
 
 
 	return eventService;
