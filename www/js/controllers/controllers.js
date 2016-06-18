@@ -2,7 +2,7 @@
 
 .controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService) {
 
-  $scope.eventos = [];
+  $scope.eventos = {};
   $scope.repo = '';
   $scope.flagacao = 0;
   $scope.carregar = function(){
@@ -26,10 +26,20 @@
 //  eventoService.deleteEvent(evento);
 // });
    $scope.participar = function(evento){
+     evento.Usuario.Estado = 1;
+     evento.IdCurso=null;
         eventoService.createEvent(evento);
    }
    $scope.deixar = function(evento){
+     evento.IdCurso=null;
+     evento.Usuario.Estado = 0;
        eventoService.deleteEvent(evento);
+
+   }
+   $scope.agendado = function(evento){
+     evento.IdCurso = 8;
+      var retorno = eventoService.findEvent(evento);
+      evento.Usuario.Estado= retorno;
    }
 
    $scope.carregar();
@@ -73,6 +83,11 @@
       loadingService.close();
     }
     $scope.carregar();
+})
+.controller('agendadosCtrl', function($scope, eventoService) {
+  $scope.agendados = 0;
+  $scope.agendados =  eventoService.agendados.agendados.length;
+
 })
 
 .controller('instituicaoCtrl', function($scope,instituicaoService,$state,$http,loadingService) {

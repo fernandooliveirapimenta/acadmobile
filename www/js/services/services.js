@@ -62,6 +62,7 @@ angular.module('app.services', [])
 .factory('eventoService', function(servicoAcad, $cordovaCalendar,toastService){
 	eventService = {};
 	eventService.eventFlagDeixar = 0;
+	eventService.agendados = new getAgendados();
 
 	eventService.url = function(){
 		var user = servicoAcad.pegarUsuarioSession();
@@ -75,6 +76,8 @@ angular.module('app.services', [])
 	eventService.createEvent = function(evento) {
 
 
+	     if(eventService.addAgendamento(evento)){
+
 			$cordovaCalendar.createEventInteractively({
 					title: evento.Titulo,
 					location: evento.Categoria.Nome,
@@ -86,26 +89,72 @@ angular.module('app.services', [])
 			}, function (err) {
 					console.error("There was an error: " + err);
 			});
+    }
+		else {
+			toastService.show('Você já participa desse evento');
 
+		}
 
 
 	}
 
 	eventService.deleteEvent = function(evento){
+     if(eventService.removeAgendamento(evento)){
+				 $cordovaCalendar.deleteEvent({
+	 				title: evento.Titulo,
+	 				location: evento.Categoria.Nome,
+	 				notes: evento.Descricao,
+	 				startDate: new Date(evento.DataInicial),
+	 				endDate: new Date(evento.DataFinal)
+	 		  }).then(function (result) {
+	 		    toastService.show('Removido do seu calendário');
+	 		  }, function (err) {
+	 		    console.log(err);
+	 		  });
 
-			$cordovaCalendar.deleteEvent({
-				title: evento.Titulo,
-				location: evento.Categoria.Nome,
-				notes: evento.Descricao,
-				startDate: new Date(evento.DataInicial),
-				endDate: new Date(evento.DataFinal)
-		  }).then(function (result) {
-		    toastService.show('Removido do seu calendário');
-		  }, function (err) {
-		    console.log(err);
-		  });
+		 }
+		 else {
+			 toastService.show('Você ainda não participa desse evento');
+
+		 }
 
 
+	}
+
+
+
+	eventService.removeAgendamento = function(evento){
+    var retorno = false;
+		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
+		if(IdUsuario!==null)
+		  retorno= eventService.agendados.remove(IdUsuario,evento);
+
+			return retorno;
+	};
+
+
+	eventService.addAgendamento=function(evento){
+		var retorno = false;
+
+		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
+		if(IdUsuario !== null){
+
+			var agendamento= {IdUsuario:IdUsuario,evento};
+			retorno = eventService.agendados.add(agendamento);
+		}
+		return retorno;
+	};
+
+	eventService.findEvent = function(evento){
+		var retorno = 1 //btnExcluir abilitado
+
+		var IdUsuario = servicoAcad.pegarUsuarioSession().IdUsuario;
+		if(IdUsuario !== null){
+			var agendamento = eventService.agendados.find(IdUsuario, evento);
+       if(agendamento ===null)
+			    retorno =0;
+		}
+		return retorno;
 	}
 
 

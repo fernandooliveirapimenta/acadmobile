@@ -1,12 +1,13 @@
-<ion-view style="" class=" " id="page1" title="Tabs Controller">
-  <div class="bar bar-header bar-dark">
+<ion-view ng-app="app" style="" class=" " id="page1" title="Tabs Controller">
+  <div ng-controller="agendadosCtrl"class="bar bar-header bar-dark">
     <div class="row row-center" >
          <img height="32px" width="64px"  src="img/logolaranja.png" >
     </div>
 
 
+    agendados  <span style="" class="badge badge-assertive">{{agendados}}</span>
   </div>
-    <ion-tabs style="" id="tabsController-tabs1" class="tabs-dark tabs-icon-top ">
+    <ion-tabs ng-controller="agendadosCtrl" style="" id="tabsController-tabs1" class="tabs-dark tabs-icon-top ">
         <ion-tab ng-controller="instituicaoCtrl" on-select="carregar()" class=" " id="tabsController-tab2" title="Instituição" icon="ion-flag" href="#/page1/Instituicao">
             <ion-nav-view name="tab2"></ion-nav-view>
         </ion-tab>

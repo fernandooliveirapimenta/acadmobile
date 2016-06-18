@@ -34,3 +34,12 @@ curl -u 66272613d093e72e0460d966ca4adf1269f4d4218726065b: -H "Content-Type: appl
 
 
   <span class="badge badge-assertive">5</span>
+
+[{"IdUsuario":11,"evento":{"$id":"1","IdEvento":8,"IdCategoria":8,"Categoria"
+:{"$id":"2","IdCategoria":8,"Nome":"Semana de Oração","Ativo":false},"Titulo":"Sorteio",
+"DataInicial":"2016-06-13T00:00:00","DataFinal":"2016-06-13T00:00:00","DataCriacao":"0001-01-01T00:00:00",
+"Descricao":"Sorteio dos prêmios da semana de oração. Participarão do sorteio os alunos que tem a
+lista de presença em 100% e que entregaram o relatório da semana.","ImagemEvento":"/imagens/todosJuntos_Sorteio.jpg",
+"IdUsuarioCriacao":11,"Usuario":{"$id":"3","IdUsuario":11,"Nome":"Matheus Rizzo","Cpf":"470.075.798-17","Senha":
+"202CB962AC59075B964B07152D234B70","Estado":1,"Email":"matheusr032009@hotmail.com","DataCadastro":"2016-05-30T00:00:00"}
+,"IdCurso":null,"Curso":null,"Ativo":true,"EventoPublico":false}}]

@@ -32,6 +32,7 @@ angular.module('app.routes', [])
 
   .state('tabsController.instituicao', {
     url: '/Instituicao',
+    cache : false,
     views: {
       'tab2': {
         templateUrl: 'templates/instituicao.html',
@@ -42,7 +43,8 @@ angular.module('app.routes', [])
   .state('tabsController', {
     url: '/page1',
     templateUrl: 'templates/tabsController.html',
-    abstract:true
+    abstract:true,
+    controller: 'agendadosCtrl'
   })
 
   .state('login', {
