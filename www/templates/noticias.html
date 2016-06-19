@@ -1,8 +1,14 @@
 <ion-view style="" class=" " id="page3" title="Noticias">
-  <ion-content class="has-header" padding="true">
+  <ion-content class="has-header" padding="false">
     <ion-refresher on-refresh="carregar()">
      </ion-refresher>
-     <div ng-repeat="noticia in noticias | orderBy:'-DataPostagem'">
+     <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Titulo" ng-model="titulo">
+        </label>
+    </div>
+     <div ng-repeat="noticia in noticias | orderBy:'-DataPostagem' | filter:{Titulo:titulo}">
        <div ng-if="noticia">
          <div id="noticia" class="list card ">
 

@@ -1,20 +1,24 @@
 <ion-view style="" class=" " id="page2" title="Eventos" >
-
     <ion-content class="has-header" padding="true">
-
       <ion-refresher on-refresh="carregar()">
        </ion-refresher
-
+       <div class="list list-inset">
+          <label class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Titulo" ng-model="titulo">
+          </label>
+        </div>
         <div ng-if="eventos">
-          <div id="eventos" class="list card " ng-repeat="evento in eventos | orderBy:'-DataCriacao'">
+          <div id="eventos" class="list card " ng-repeat="evento in eventos | orderBy:'-DataCriacao' | filter:{Titulo:titulo}">
 
 
               <ion-item  class="item-body laranja" ng-if="evento.Titulo">
                   <i class="icon ion-pin"></i> {{evento.Titulo}}
               </ion-item>
               <div class="card ">
-                <i class="icon ion-calendar"></i> {{evento.DataInicial | date:"dd/MM/yyyy  h:mma"}} - <i class="icon ion-calendar assertive"></i> {{evento.DataFinal | date:"dd/MM/yyyy  h:mma"}}
-
+                <i class="icon ion-calendar"></i> {{evento.DataInicial | date:"dd/MM/yyyy  h:mma"  }} - <i class="icon ion-calendar assertive"></i> {{evento.DataFinal | date:"dd/MM/yyyy  h:mma"}}
+                  <br>
+                <i class="icon ion-ios-flower" ng-if="evento.Categoria.Nome">{{evento.Categoria.Nome}}</i>
               </div>
 
               <div class="img-teste" ng-if="evento.ImagemEvento">
@@ -24,11 +28,7 @@
                     <ul style="font-size: 13px;">
                       {{evento.Descricao}}
 
-                       <div class="row dark" ng-if="evento.Categoria.Nome">
-                         <br>
-                         <br>
-                         <i class="icon ion-ios-flower" >{{evento.Categoria.Nome}}</i>
-                       </div>
+
                       </ul>
               </div>
               <div ng-if="user">
