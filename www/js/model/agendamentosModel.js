@@ -55,6 +55,16 @@ function getAgendados(){
     return retorno;
   }
 
+  this.eventoantigo= function(IdUsuario,evento){
+    var retorno = null;
+      angular.forEach(this.getAgendamentos(), function(agendamento) {
+           if(agendamento !== null && agendamento.IdUsuario ==IdUsuario && agendamento.evento.IdEvento == evento.IdEvento)
+             retorno = agendamento.evento;
+    });
+
+    return retorno;
+  }
+
 
     this.agendamentos = function(IdUsuario){
       var retorno = [];

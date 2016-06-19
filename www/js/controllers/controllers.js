@@ -1,6 +1,6 @@
  angular.module('app.controllers', [])
 
-.controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService) {
+.controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService,toastService) {
   $scope.eventos = {};  $scope.repo = '';  $scope.flagacao = 0;  $scope.user = null;   $scope.agendados = 0;
   $scope.carregar = function(){
     $scope.agendados =  eventoService.quantidade();  $scope.user = servicoAcad.pegarUsuarioSession();
@@ -8,6 +8,7 @@
     $http.get(eventoService.url()).success(function(data){
       console.log(data);   $scope.eventos = angular.fromJson(data);    $scope.repo = servicoAcad.repository;
       loadingService.close();
+      $scope.alteraragenda(data);
     }).error(function(erro){
       console.log(erro); loadingService.close();
     }).finally(function() {
@@ -18,7 +19,13 @@
    $scope.participar = function(evento){  evento.Usuario.Estado = 1;     evento.IdCurso=null;   eventoService.createEvent(evento, $scope);   };
    $scope.deixar = function(evento){ evento.IdCurso=null;      evento.Usuario.Estado = 0;     eventoService.deleteEvent(evento,$scope);   };
    $scope.agendado = function(evento){  evento.IdCurso = 8;     var retorno = eventoService.findEvent(evento);    evento.Usuario.Estado= retorno;  };
-    
+   $scope.alteraragenda = function (data){
+     var msg =false;
+     angular.forEach(data, function(evento) {
+          msg=  eventoService.alterar(evento,$scope);
+   });
+    if(msg) toastService.show('Houve alterações na sua agenda');
+   };
 
    $scope.carregar();
 })

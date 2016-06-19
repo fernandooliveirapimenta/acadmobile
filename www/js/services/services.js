@@ -75,7 +75,33 @@ angular.module('app.services', [])
 			toastService.show('Você já participa desse evento');
 		}
 	};
+var flagMsg = false;
+	eventService.alterar = function(eventonovo, $scope){
 
+       	var user = servicoAcad.pegarUsuarioSession();
+        var eventoantigo =eventService.agendados.eventoantigo(user.IdUsuario,eventonovo);
+				if(eventoantigo !== null)				{
+
+					$cordovaCalendar.modifyEvent({
+						title: eventoantigo.Titulo,
+						location: eventoantigo.Categoria.Nome,
+						notes: eventoantigo.Descricao,
+						startDate: new Date(eventoantigo.DataInicial),
+						endDate: new Date(eventoantigo.DataFinal),
+				    newTitle: eventonovo.Titulo,
+				    newLocation: eventonovo.Categoria.Nome,
+				    newNotes: eventonovo.Descricao,
+				    newStartDate: new Date(eventonovo.DataInicial),
+				    newEndDate: new Date(eventonovo.DataFinal)
+				  }).then(function (result) {
+						$scope.agendados =  eventService.quantidade();
+							flagMsg = true;
+				  }, function (err) {
+				     console.log(err);
+				   });
+				}
+				return flagMsg;
+ }
 	eventService.deleteEvent = function(evento, $scope){
      if(eventService.removeAgendamento(evento, $scope)){
 				 $cordovaCalendar.deleteEvent({

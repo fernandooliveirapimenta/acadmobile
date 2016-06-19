@@ -25,25 +25,27 @@
                   <img  ng-src="{{repo}}{{evento.ImagemEvento}}">
               </div>
               <div  class="item item-body ">
+                <div class="row">
                     <ul style="font-size: 13px;">
                       {{evento.Descricao}}
                       </ul>
-              </div>
-              <div ng-if="user">
-                <div class="row" >
-                  <div class="col col-80">
-                    <button class="button icon ion-navicon-round" ng-click="agendado(evento)"></button>
+                 </div>
+                        <div class="row" ng-if="user">
+                          <div class="col col-80">
+                            <button class="button laranja icon ion-navicon-round" ng-click="agendado(evento)"></button>
 
-                  </div>
+                          </div>
 
-                <div ng-if="evento.IdCurso" >
-                      <div class="clo clo-20">
-                        <button class="button button-dark icon-center ion-heart"  ng-click="participar(evento)" ng-if="evento.Usuario.Estado == 0" ></button>
-                        <button ng-click="deixar(evento)"  class="button  button-assertive  ion-trash-b" ng-if="evento.Usuario.Estado == 1"></button>
-                      </div>
-                  </div>
-                </div>
+                        <div ng-if="evento.IdCurso" >
+                              <div class="clo clo-20">
+                                <button class="button button-dark icon-center ion-heart"  ng-click="participar(evento)" ng-if="evento.Usuario.Estado == 0" ></button>
+                                <button ng-click="deixar(evento)"  class="button  button-assertive  ion-trash-b" ng-if="evento.Usuario.Estado == 1"></button>
+                              </div>
+                          </div>
+                        </div>
+
               </div>
+
 
           </div>
         </div>
