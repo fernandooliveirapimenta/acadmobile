@@ -6,31 +6,39 @@
        </ion-refresher
 
         <div ng-if="eventos">
-          <div id="eventos" class="list card " ng-repeat="evento in eventos">
+          <div id="eventos" class="list card " ng-repeat="evento in eventos | orderBy:'-DataCriacao'">
 
 
               <ion-item  class="item-body laranja" ng-if="evento.Titulo">
                   <i class="icon ion-pin"></i> {{evento.Titulo}}
               </ion-item>
+              <div class="card ">
+                <i class="icon ion-calendar"></i> {{evento.DataInicial | date:"dd/MM/yyyy  h:mma"}} - <i class="icon ion-calendar assertive"></i> {{evento.DataFinal | date:"dd/MM/yyyy  h:mma"}}
+
+              </div>
+
               <div class="img-teste" ng-if="evento.ImagemEvento">
                   <img  ng-src="{{repo}}{{evento.ImagemEvento}}">
               </div>
               <div  class="item item-body ">
+                    <ul style="font-size: 13px;">
                       {{evento.Descricao}}
-                      <br>
-                      <br>
-                      <i class="icon ion-ios-flower" ng-if="evento.Categoria.Nome">{{evento.Categoria.Nome}}</i>
-                      <br>
-                      <i class="icon ion-ios-timer-outline"></i> {{evento.DataInicial | date:'dd/MM/yyyy'}}-{{evento.DataFinal | date:'dd/MM/yyyy'}}
+
+                       <div class="row dark" ng-if="evento.Categoria.Nome">
+                         <br>
+                         <br>
+                         <i class="icon ion-ios-flower" >{{evento.Categoria.Nome}}</i>
+                       </div>
+                      </ul>
               </div>
               <div ng-if="user">
-                <div class="row">
+                <div class="row" >
                   <div class="col col-80">
                     <button class="button icon ion-navicon-round" ng-click="agendado(evento)"></button>
 
                   </div>
 
-                <div ng-if="evento.IdCurso">
+                <div ng-if="evento.IdCurso" >
                       <div class="clo clo-20">
                         <button class="button button-dark icon-center ion-heart"  ng-click="participar(evento)" ng-if="evento.Usuario.Estado == 0" ></button>
                         <button ng-click="deixar(evento)"  class="button  button-assertive  ion-trash-b" ng-if="evento.Usuario.Estado == 1"></button>

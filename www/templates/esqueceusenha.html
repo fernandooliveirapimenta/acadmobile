@@ -7,17 +7,22 @@
 
   </div>
     <ion-content class="has-header" padding="true">
+      <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="voltar()">{{cencelarvoltar}}</a>
+
+      <div class="item item-text-wrap item-assertive" ng-if="mensagem">
+        <label class=""  ng-click="sumir()" > <h4>{{mensagem}}</h4></label>
+      </div>
         <form class="list " id="formSenha">
             <div class="card">
                 <ion-list class=" " id="login-list3">
                  <label class="item item-input">
-                   <input  ng-model="email" type="text"  placeholder="Email">
+                   <input type="email" ng-model="email" type="text"  placeholder="Email">
                  </label>
                 </ion-list>
-                <button ng-disabled="!email" class=" button button-dark button-small button-block " id="esqueceuSubmit" ng-click="esqueciSenha()">Ok</button >
+                <button ng-disabled="!email" class=" button button-dark button-small button-block " id="esqueceuSubmit" ng-click="esqueciSenha(email)">Ok</button >
 
             </div>
-            <ul class="list">
+            <ul class="list" ng-if="flag">
               <li class="item">
                <p>
                  Você recebera um email com sua nova senha!
