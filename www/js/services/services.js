@@ -62,9 +62,9 @@ angular.module('app.services', [])
 					startDate: new Date(evento.DataInicial),
 					endDate: new Date(evento.DataFinal)
 			}).then(function (result) {
-				 toastService.show('Evento adiconado ao seu calendário');
-				 $scope.agendados =  eventService.quantidade();
+
 				 eventService.addAgendamento(evento);
+				 $scope.agendados =  eventService.quantidade();
 
 
 			}, function (err) {

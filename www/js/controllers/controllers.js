@@ -15,22 +15,11 @@
      });
   }
 
-   $scope.participar = function(evento){
-     evento.Usuario.Estado = 1;
-     evento.IdCurso=null;
-     eventoService.createEvent(evento, $scope);
-   }
-   $scope.deixar = function(evento){
-     evento.IdCurso=null;
-     evento.Usuario.Estado = 0;
-     eventoService.deleteEvent(evento,$scope);
+   $scope.participar = function(evento){  evento.Usuario.Estado = 1;     evento.IdCurso=null;   eventoService.createEvent(evento, $scope);   };
+   $scope.deixar = function(evento){ evento.IdCurso=null;      evento.Usuario.Estado = 0;     eventoService.deleteEvent(evento,$scope);   };
+   $scope.agendado = function(evento){  evento.IdCurso = 8;     var retorno = eventoService.findEvent(evento);    evento.Usuario.Estado= retorno;  };
+    
 
-   }
-   $scope.agendado = function(evento){
-      evento.IdCurso = 8;
-      var retorno = eventoService.findEvent(evento);
-      evento.Usuario.Estado= retorno;
-   }
    $scope.carregar();
 })
 
@@ -64,8 +53,7 @@
 
 .controller('instituicaoCtrl', function($scope,instituicaoService,$state,$http,loadingService) {
   $scope.instituicao = {};  loadingService.open();   $scope.falgConta = 0;
-  $scope.carregar = function (){
-    loadingService.open();
+  $scope.carregar = function (){ loadingService.open();
     if(instituicaoService.buscarInstituicao()!= null){
       $http.get(instituicaoService.buscarInstituicao()).success(function(data){
         console.log(data); $scope.instituicao = angular.fromJson(data);  $scope.falgConta =1; loadingService.close();   $state.go("tabsController.instituicao"); $scope.$broadcast('scroll.refreshComplete');
@@ -134,7 +122,6 @@
         if($scope.authData === null || $scope.authData.facebook ) { Auth.auth.$authWithOAuthPopup("google",function(error, authData ){
               if (error) { console.log("Login Failed!", error); } else { $state.go("tabsController.eventos"); }
           });
-
         }
         else{ $state.go("tabsController.eventos");}
     };
