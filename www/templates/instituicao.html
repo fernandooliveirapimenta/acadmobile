@@ -23,8 +23,14 @@
           <div class="item item-divider item-dark">
           {{instituicao.Nome}}
           </div>
-          <div class="item item-text-wrap">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit ipsum consectetur explicabo error minima voluptas itaque beatae maiores voluptatem corrupti perferendis dolores ullam fugiat deleniti quae, voluptatibus deserunt, accusantium magni repellat voluptates totam vero alias enim natus. Corporis, doloremque, consectetur.
+          <div ng-repeat="endereco in instituicao.Enderecos ">
+
+                     {{endereco.Bairro}} {{endereco.CEP}}
+                      {{endereco.Cidade}} {{endereco.Estado}}
+                      {{endereco.Logradouro}} {{endereco.Numero}}
+                      <br>
+                        <br>
+
           </div>
         </div>
 
