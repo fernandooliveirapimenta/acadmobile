@@ -55,6 +55,10 @@ angular.module('app.services', [])
 			$cordovaCalendar.createEventInteractively({
 					title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
 			}).then(function (result) {
+				$cordovaCalendar.createEventWithOptions({
+					title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
+
+				}).then(function (result) { toastService.show('Evento criado'); }, function (err) { });
 				 eventService.addAgendamento(evento);		 $scope.agendados =  eventService.quantidade();
 			}, function (err) {
 					console.error("There was an error: " + err);
@@ -65,10 +69,18 @@ angular.module('app.services', [])
 var flagMsg = false;
 	eventService.alterar = function(eventonovo, $scope){
        	var user = servicoAcad.pegarUsuarioSession();   var eventoantigo =eventService.agendados.eventoantigo(user.IdUsuario,eventonovo);
-				if(eventoantigo !== null)				{
+				if(eventoantigo !== null){
 					$cordovaCalendar.modifyEvent({
-						title: eventoantigo.Titulo,	location: eventoantigo.Categoria.Nome, 	notes: eventoantigo.Descricao,	startDate: new Date(eventoantigo.DataInicial),	endDate: new Date(eventoantigo.DataFinal),
-				    newTitle: eventonovo.Titulo, newLocation: eventonovo.Categoria.Nome,  newNotes: eventonovo.Descricao, newStartDate: new Date(eventonovo.DataInicial), newEndDate: new Date(eventonovo.DataFinal)
+						title: eventoantigo.Titulo,
+						location: eventoantigo.Categoria.Nome,
+						notes: eventoantigo.Descricao,
+						startDate: new Date(eventoantigo.DataInicial),
+						endDate: new Date(eventoantigo.DataInicial),
+				    newTitle: eventonovo.Titulo,
+						newLocation: eventonovo.Categoria.Nome,
+						newNotes: eventonovo.Descricao,
+						newStartDate: new Date(eventonovo.DataInicial),
+						newEndDate: new Date(eventonovo.DataFinal)
 				  }).then(function (result) {
 						$scope.agendados =  eventService.quantidade();
 						flagMsg = true;

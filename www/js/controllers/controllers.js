@@ -1,14 +1,13 @@
  angular.module('app.controllers', [])
 
-.controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService,toastService) {
+.controller('eventosCtrl', function($scope, $http,eventoService,servicoAcad,loadingService) {
   $scope.eventos = {};  $scope.repo = '';  $scope.flagacao = 0;  $scope.user = null;   $scope.agendados = 0;
   $scope.carregar = function(){
     $scope.agendados =  eventoService.quantidade();  $scope.user = servicoAcad.pegarUsuarioSession();
     loadingService.open();
     $http.get(eventoService.url()).success(function(data){
       console.log(data);   $scope.eventos = angular.fromJson(data);    $scope.repo = servicoAcad.repository;
-      loadingService.close();
-      $scope.alteraragenda(data);
+         loadingService.close();    $scope.alteraragenda(data);
     }).error(function(erro){
       console.log(erro); loadingService.close();
     }).finally(function() {
@@ -24,7 +23,7 @@
      angular.forEach(data, function(evento) {
           msg=  eventoService.alterar(evento,$scope);
    });
-    if(msg) toastService.show('Houve alterações na sua agenda');
+    if(msg) toastService.show('Removido do seu calendário');
    };
 
    $scope.carregar();
