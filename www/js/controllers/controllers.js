@@ -21,9 +21,9 @@
    $scope.alteraragenda = function (data){
      var msg =false;
      angular.forEach(data, function(evento) {
-          msg=  eventoService.alterar(evento,$scope);
+           eventoService.alterar(evento,$scope);
    });
-    if(msg) toastService.show('Removido do seu calendário');
+
    };
 
    $scope.carregar();

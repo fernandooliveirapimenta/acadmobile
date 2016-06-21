@@ -53,10 +53,10 @@ angular.module('app.services', [])
 		var user = servicoAcad.pegarUsuarioSession(); 	var flag = eventService.agendados.find(user.IdUsuario,evento);
 	     if(flag == null){
 			$cordovaCalendar.createEventInteractively({
-					title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
+					title: evento.Titulo,	location: 'unasp', notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
 			}).then(function (result) {
-				$cordovaCalendar.createEventWithOptions({
-					title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
+				$cordovaCalendar.createEvent({
+					title: evento.Titulo,	location: 'unasp', notes: evento.Descricao,	startDate: new Date(evento.DataInicial), endDate: new Date(evento.DataFinal)
 
 				}).then(function (result) { toastService.show('Evento criado'); }, function (err) { });
 				 eventService.addAgendamento(evento);		 $scope.agendados =  eventService.quantidade();
@@ -66,38 +66,44 @@ angular.module('app.services', [])
     }
 		else {toastService.show('Você já participa desse evento');}
 	};
-var flagMsg = false;
+
 	eventService.alterar = function(eventonovo, $scope){
+		var flagMsg = false;
        	var user = servicoAcad.pegarUsuarioSession();   var eventoantigo =eventService.agendados.eventoantigo(user.IdUsuario,eventonovo);
 				if(eventoantigo !== null){
-					$cordovaCalendar.modifyEvent({
-						title: eventoantigo.Titulo,
-						location: eventoantigo.Categoria.Nome,
-						notes: eventoantigo.Descricao,
-						startDate: new Date(eventoantigo.DataInicial),
-						endDate: new Date(eventoantigo.DataInicial),
-				    newTitle: eventonovo.Titulo,
-						newLocation: eventonovo.Categoria.Nome,
-						newNotes: eventonovo.Descricao,
-						newStartDate: new Date(eventonovo.DataInicial),
-						newEndDate: new Date(eventonovo.DataFinal)
-				  }).then(function (result) {
-						$scope.agendados =  eventService.quantidade();
-						flagMsg = true;
-				  }, function (err) {
-				     console.log(err);
-				   });
+             var teste = eventService.isOuveMudanca(eventonovo,eventoantigo);
+           if(teste){
+						 $cordovaCalendar.deleteEvent({	title: eventoantigo.Titulo,		location: 'unasp', notes: eventoantigo.Descricao,  startDate: new Date(eventoantigo.DataInicial),	 endDate: new Date(eventoantigo.DataFinal)
+					 }).then(function (result) {	$cordovaCalendar.deleteEvent({	title: eventoantigo.Titulo,		location: 'unasp', notes: eventoantigo.Descricao,  startDate: new Date(eventoantigo.DataInicial),	 endDate: new Date(eventoantigo.DataFinal)
+ 	  	 		  });
+						if(result){
+	 						$scope.agendados =  eventService.quantidade();		flagMsg = true;
+			 						$cordovaCalendar.createEvent({title: eventonovo.Titulo,	location: 'unasp', notes: eventonovo.Descricao,	startDate: new Date(eventonovo.DataInicial), endDate: new Date(eventonovo.DataFinal)});
+	 					}
+
+	  	 		  }, function (err) {  console.log(err);  });
+
+					 }
 				}
 				return flagMsg;
+ }
+
+ eventService.isOuveMudanca = function(eventonovo, eventoantigo) {
+	  var retorno = false;
+		if(eventonovo.Titulo !== eventoantigo.Titulo||eventonovo.Descricao !== eventoantigo.Descricao)
+		 retorno = true;
+		if(eventonovo.DataInicial !== eventoantigo.DataInicial || eventonovo.DataFinal !== eventoantigo.DataFinal)
+		 retorno = true;
+		 return retorno;
  }
 	eventService.deleteEvent = function(evento, $scope){
      if(eventService.removeAgendamento(evento, $scope)){
 				 $cordovaCalendar.deleteEvent({
-	 				title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
+	 				title: evento.Titulo,	location: 'unasp', notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
 	 		  }).then(function (result) {
 	 		    toastService.show('Removido do seu calendário');$scope.agendados =  eventService.quantidade();
 					$cordovaCalendar.deleteEvent({
- 	 				title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
+ 	 				title: evento.Titulo,	location: 'unasp', notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
  	 		  }).then(function (result) {
  	 		  }, function (err) {  console.log(err);  });
 	 		  }, function (err) {  console.log(err);  });
