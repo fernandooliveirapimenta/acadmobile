@@ -96,6 +96,10 @@ var flagMsg = false;
 	 				title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
 	 		  }).then(function (result) {
 	 		    toastService.show('Removido do seu calendário');$scope.agendados =  eventService.quantidade();
+					$cordovaCalendar.deleteEvent({
+ 	 				title: evento.Titulo,	location: evento.Categoria.Nome, notes: evento.Descricao,	startDate: new Date(evento.DataInicial),endDate: new Date(evento.DataFinal)
+ 	 		  }).then(function (result) {
+ 	 		  }, function (err) {  console.log(err);  });
 	 		  }, function (err) {  console.log(err);  });
 		 }
 		 else { toastService.show('Você ainda não participa desse evento'); }
